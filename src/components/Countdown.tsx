@@ -1,0 +1,112 @@
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+
+const EVENT_DATE = new Date('2026-07-23T18:00:00+05:30').getTime();
+
+function getTimeLeft() {
+  const now = Date.now();
+  const diff = Math.max(0, EVENT_DATE - now);
+  return {
+    days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+    hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+    minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
+    seconds: Math.floor((diff % (1000 * 60)) / 1000),
+  };
+}
+
+function Segment({ value, label }: { value: number; label: string }) {
+  const display = String(value).padStart(2, '0');
+  return (
+    <div className="flex flex-col items-center gap-3">
+      <div className="relative">
+        <div className="bg-[#0D0D0D]/85 backdrop-blur-sm border border-white/[0.12] rounded-lg w-20 sm:w-28 md:w-32 h-20 sm:h-28 md:h-32 flex items-center justify-center shadow-2xl overflow-hidden hover:border-[#FF1F1F]/40 transition-colors duration-300">
+          <div className="absolute inset-x-0 top-1/2 h-px bg-black/50 z-10" />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/[0.04] to-transparent pointer-events-none" />
+          <span className="text-white text-4xl sm:text-5xl md:text-6xl font-black tabular-nums tracking-tighter relative z-20">
+            {display}
+          </span>
+        </div>
+        {/* Red corner accents */}
+        <div className="absolute top-0 left-0 w-2.5 h-2.5 border-t-2 border-l-2 border-[#FF1F1F]/70 rounded-tl-lg" />
+        <div className="absolute top-0 right-0 w-2.5 h-2.5 border-t-2 border-r-2 border-[#FF1F1F]/70 rounded-tr-lg" />
+        <div className="absolute bottom-0 left-0 w-2.5 h-2.5 border-b-2 border-l-2 border-[#FF1F1F]/70 rounded-bl-lg" />
+        <div className="absolute bottom-0 right-0 w-2.5 h-2.5 border-b-2 border-r-2 border-[#FF1F1F]/70 rounded-br-lg" />
+      </div>
+      <span className="text-[#A0A0A0] text-xs sm:text-sm uppercase tracking-[0.2em] font-medium">
+        {label}
+      </span>
+    </div>
+  );
+}
+
+export default function Countdown() {
+  const [time, setTime] = useState(getTimeLeft);
+
+  useEffect(() => {
+    const id = setInterval(() => setTime(getTimeLeft()), 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <section className="relative py-20 overflow-hidden bg-[#050505]">
+      {/* Background image — subtle world/space feel */}
+      <div className="absolute inset-0 pointer-events-none">
+        <img
+          src="https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?auto=compress&cs=tinysrgb&w=1600"
+          alt=""
+          aria-hidden="true"
+          className="w-full h-full object-cover object-center opacity-15"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-transparent to-[#050505]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(199,0,0,0.08),transparent_70%)]" />
+      </div>
+
+      {/* Top / bottom border lines */}
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#FF1F1F]/30 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#FF1F1F]/30 to-transparent" />
+
+      <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center relative">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-10"
+        >
+          <p className="text-[#FF1F1F] text-xs font-bold uppercase tracking-[0.3em] mb-3">
+            Don't Miss It
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight">
+            Webinar Starts In
+          </h2>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="flex items-end justify-center gap-4 sm:gap-6 md:gap-8"
+        >
+          <Segment value={time.days} label="Days" />
+          <span className="text-[#FF1F1F] text-4xl sm:text-5xl font-black mb-10 sm:mb-14 leading-none select-none">:</span>
+          <Segment value={time.hours} label="Hours" />
+          <span className="text-[#FF1F1F] text-4xl sm:text-5xl font-black mb-10 sm:mb-14 leading-none select-none">:</span>
+          <Segment value={time.minutes} label="Minutes" />
+          <span className="text-[#FF1F1F] text-4xl sm:text-5xl font-black mb-10 sm:mb-14 leading-none select-none">:</span>
+          <Segment value={time.seconds} label="Seconds" />
+        </motion.div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4 }}
+          className="mt-10 text-[#A0A0A0] text-sm"
+        >
+          23 July 2026 · 06:00 PM – 08:00 PM IST · Online Webinar
+        </motion.p>
+      </div>
+    </section>
+  );
+}
