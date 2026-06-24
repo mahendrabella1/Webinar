@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Calendar, Clock, Users, ArrowRight, Video } from 'lucide-react';
 
-const POSTER = 'https://onegrasp.com/wp-content/uploads/2026/06/ChatGPT-Image-Jun-22-2026-02_41_43-PM.png';
+const POSTER = '/images/ChatGPT_Image_Jun_22,_2026,_02_41_43_PM.png';
 
 export default function Hero() {
   return (
@@ -155,18 +155,18 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Right: Single webinar poster */}
+          {/* Right: Single webinar poster - large, covering half width */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative flex justify-center lg:justify-end"
+            className="relative flex justify-end"
           >
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="group relative overflow-hidden rounded-xl border-2 border-[#FF1F1F]/40 shadow-[0_0_50px_rgba(255,31,31,0.2)] hover:border-[#FF1F1F]/70 transition-all duration-400 max-w-sm w-full"
+              className="group relative overflow-hidden rounded-xl border-2 border-[#FF1F1F]/40 shadow-[0_0_60px_rgba(255,31,31,0.25)] hover:border-[#FF1F1F]/70 transition-all duration-400 w-full"
               style={{ aspectRatio: '3/4' }}
             >
               <img
@@ -175,15 +175,15 @@ export default function Hero() {
                 className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
               {/* Badge on image */}
-              <div className="absolute top-4 left-4">
-                <span className="bg-[#FF1F1F] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-sm shadow-lg">
+              <div className="absolute top-5 left-5">
+                <span className="bg-[#FF1F1F] text-white text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-sm shadow-lg">
                   Free Webinar
                 </span>
               </div>
-              <div className="absolute top-4 right-4">
-                <span className="bg-white/10 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-sm border border-white/20">
+              <div className="absolute top-5 right-5">
+                <span className="bg-white/10 backdrop-blur-sm text-white text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-sm border border-white/20">
                   23 July 2026
                 </span>
               </div>
@@ -194,14 +194,14 @@ export default function Hero() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 1.0, duration: 0.5 }}
-              className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-[#0D0D0D] border border-[#FF1F1F]/30 rounded-full px-6 py-2 shadow-xl"
+              className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-[#0D0D0D] border border-[#FF1F1F]/30 rounded-full px-8 py-2.5 shadow-xl"
             >
               <div className="flex items-center gap-2">
-                <span className="relative flex h-2 w-2">
+                <span className="relative flex h-2.5 w-2.5">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FF1F1F]"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#FF1F1F]"></span>
                 </span>
-                <span className="text-white text-xs font-bold uppercase tracking-widest">Live Online Webinar</span>
+                <span className="text-white text-sm font-bold uppercase tracking-widest">Live Online Webinar</span>
               </div>
             </motion.div>
           </motion.div>
