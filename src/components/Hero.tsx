@@ -1,10 +1,7 @@
 import { motion } from 'framer-motion';
 import { Calendar, Clock, Users, ArrowRight, Video } from 'lucide-react';
 
-const POSTERS = [
-  'https://onegrasp.com/wp-content/uploads/2026/06/ChatGPT-Image-Jun-22-2026-02_41_43-PM.png',
-  'https://onegrasp.com/wp-content/uploads/2026/06/ChatGPT-Image-Jun-22-2026-02_41_22-PM-1.png',
-];
+const POSTER = 'https://onegrasp.com/wp-content/uploads/2026/06/ChatGPT-Image-Jun-22-2026-02_41_43-PM.png';
 
 export default function Hero() {
   return (
@@ -158,39 +155,39 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Right: Webinar flyers */}
+          {/* Right: Single webinar poster */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative"
+            className="relative flex justify-center lg:justify-end"
           >
-            <div className="grid grid-cols-2 gap-4">
-              {POSTERS.map((src, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.4 + i * 0.1 }}
-                  className="group relative overflow-hidden rounded-xl border-2 border-[#FF1F1F]/40 shadow-[0_0_40px_rgba(255,31,31,0.15)] hover:border-[#FF1F1F]/70 transition-all duration-400"
-                  style={{ aspectRatio: '3/4' }}
-                >
-                  <img
-                    src={src}
-                    alt={`Webinar flyer ${i + 1}`}
-                    className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                  {/* Badge on image */}
-                  <div className="absolute top-3 left-3">
-                    <span className="bg-[#FF1F1F] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-sm shadow-lg">
-                      {i === 0 ? 'Free Webinar' : '23 July 2026'}
-                    </span>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="group relative overflow-hidden rounded-xl border-2 border-[#FF1F1F]/40 shadow-[0_0_50px_rgba(255,31,31,0.2)] hover:border-[#FF1F1F]/70 transition-all duration-400 max-w-sm w-full"
+              style={{ aspectRatio: '3/4' }}
+            >
+              <img
+                src={POSTER}
+                alt="Webinar flyer"
+                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+              {/* Badge on image */}
+              <div className="absolute top-4 left-4">
+                <span className="bg-[#FF1F1F] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-sm shadow-lg">
+                  Free Webinar
+                </span>
+              </div>
+              <div className="absolute top-4 right-4">
+                <span className="bg-white/10 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-sm border border-white/20">
+                  23 July 2026
+                </span>
+              </div>
+            </motion.div>
 
             {/* Floating badge */}
             <motion.div
