@@ -59,7 +59,7 @@ export default function RegistrationForm({ isOpen, onClose, ctaName }: Registrat
         body: JSON.stringify({
           ...formData,
           ctaName,
-          amount: '₹1',
+          amount: '₹299',
         }),
       });
 
@@ -68,7 +68,7 @@ export default function RegistrationForm({ isOpen, onClose, ctaName }: Registrat
         JSON.stringify({
           ...formData,
           ctaName,
-          amount: '₹1',
+          amount: '₹299',
           timestamp: new Date().toISOString(),
         })
       );
@@ -131,7 +131,7 @@ export default function RegistrationForm({ isOpen, onClose, ctaName }: Registrat
               <div className="flex items-center justify-between mb-6">
               <div>
                 <h2 className="text-xl sm:text-2xl font-black text-white">Register & Pay</h2>
-                <p className="text-white/50 text-sm mt-1">Complete your details and pay ₹1</p>
+                <p className="text-white/50 text-sm mt-1">Complete your details and pay ₹299</p>
               </div>
               <button
                 onClick={onClose}
@@ -145,7 +145,7 @@ export default function RegistrationForm({ isOpen, onClose, ctaName }: Registrat
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="rounded-lg border border-[#FF1F1F]/20 bg-[#FF1F1F]/10 px-4 py-3 text-center text-sm font-semibold text-[#FFB3B3]">
-                Pay ₹1 to secure your spot
+                Pay ₹299 to secure your spot
               </div>
 
               {/* Name */}
