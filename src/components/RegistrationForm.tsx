@@ -124,8 +124,9 @@ export default function RegistrationForm({ isOpen, onClose, ctaName }: Registrat
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 w-full sm:w-[min(92vw,28rem)] max-h-[92vh] overflow-y-auto z-50 bg-[#0D0D0D] border border-white/10 rounded-none sm:rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
           >
+            <div className="w-full max-w-md rounded-3xl bg-[#0D0D0D] border border-white/10 shadow-2xl p-4 sm:p-6 md:p-8 overflow-hidden max-h-[calc(100vh-3.5rem)] overflow-y-auto">
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
               <div>
