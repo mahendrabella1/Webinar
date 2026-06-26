@@ -7,7 +7,8 @@ export const RAZORPAY_CONFIG = {
 
 // WhatsApp configuration
 export const WHATSAPP_CONFIG = {
-  INVITE_URL: 'https://chat.whatsapp.com/LcZg2zE0KrpJsFh8HjB9hP',
+  MESSAGE: 'Join the OneGrasp webinar group: https://chat.whatsapp.com/LcZg2zE0KrpJsFh8HjB9hP',
+  WEB_FALLBACK: 'https://api.whatsapp.com/send?text=Join%20the%20OneGrasp%20webinar%20group%3A%20https%3A%2F%2Fchat.whatsapp.com%2FLcZg2zE0KrpJsFh8HjB9hP',
 };
 
 export interface PaymentDetails {
@@ -75,5 +76,17 @@ export const initiatePayment = (
 };
 
 export const redirectToWhatsApp = () => {
-  window.location.href = WHATSAPP_CONFIG.INVITE_URL;
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
+  const whatsappIntent = `whatsapp://send?text=${encodeURIComponent(WHATSAPP_CONFIG.MESSAGE)}`;
+
+  if (isMobile) {
+    window.location.href = whatsappIntent;
+    setTimeout(() => {
+      window.location.href = WHATSAPP_CONFIG.WEB_FALLBACK;
+    }, 1500);
+  } else {
+    window.location.href = WHATSAPP_CONFIG.WEB_FALLBACK;
+  }
 };
