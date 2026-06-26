@@ -43,6 +43,12 @@ export const initiatePayment = (
       email: registrationData?.email || '',
       contact: registrationData?.mobile || '',
     },
+    notes: {
+      email: registrationData?.email || '',
+      mobile: registrationData?.mobile || '',
+      institution: registrationData?.institution || '',
+      pincode: registrationData?.pincode || '',
+    },
     theme: {
       color: '#FF1F1F',
     },

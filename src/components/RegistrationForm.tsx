@@ -108,13 +108,13 @@ export default function RegistrationForm({ isOpen, onClose, ctaName }: Registrat
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.3 }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md z-50 bg-[#0D0D0D] border border-white/10 rounded-xl shadow-2xl p-6 md:p-8"
+            className="fixed inset-0 sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 w-full sm:w-[min(92vw,28rem)] max-h-[92vh] overflow-y-auto z-50 bg-[#0D0D0D] border border-white/10 rounded-none sm:rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8"
           >
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h2 className="text-2xl font-black text-white">Quick Registration</h2>
-                <p className="text-white/50 text-sm mt-1">Complete your details to proceed</p>
+                <h2 className="text-xl sm:text-2xl font-black text-white">Quick Registration</h2>
+                <p className="text-white/50 text-sm mt-1">Complete your details to proceed securely</p>
               </div>
               <button
                 onClick={onClose}
@@ -138,8 +138,10 @@ export default function RegistrationForm({ isOpen, onClose, ctaName }: Registrat
                   value={formData.mobile}
                   onChange={handleChange}
                   placeholder="10-digit mobile number"
+                  inputMode="numeric"
                   maxLength={10}
-                  className={`w-full bg-white/5 border rounded-lg px-4 py-2.5 text-white placeholder-white/30 focus:outline-none focus:ring-2 transition-all ${
+                  autoComplete="tel"
+                  className={`w-full bg-white/5 border rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:ring-2 transition-all ${
                     errors.mobile
                       ? 'border-red-500/50 focus:ring-red-500/30'
                       : 'border-white/10 focus:ring-[#FF1F1F]/30 focus:border-[#FF1F1F]'
@@ -160,7 +162,8 @@ export default function RegistrationForm({ isOpen, onClose, ctaName }: Registrat
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="your@email.com"
-                  className={`w-full bg-white/5 border rounded-lg px-4 py-2.5 text-white placeholder-white/30 focus:outline-none focus:ring-2 transition-all ${
+                  autoComplete="email"
+                  className={`w-full bg-white/5 border rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:ring-2 transition-all ${
                     errors.email
                       ? 'border-red-500/50 focus:ring-red-500/30'
                       : 'border-white/10 focus:ring-[#FF1F1F]/30 focus:border-[#FF1F1F]'
@@ -181,7 +184,8 @@ export default function RegistrationForm({ isOpen, onClose, ctaName }: Registrat
                   value={formData.institution}
                   onChange={handleChange}
                   placeholder="Your university/organization"
-                  className={`w-full bg-white/5 border rounded-lg px-4 py-2.5 text-white placeholder-white/30 focus:outline-none focus:ring-2 transition-all ${
+                  autoComplete="organization"
+                  className={`w-full bg-white/5 border rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:ring-2 transition-all ${
                     errors.institution
                       ? 'border-red-500/50 focus:ring-red-500/30'
                       : 'border-white/10 focus:ring-[#FF1F1F]/30 focus:border-[#FF1F1F]'
@@ -204,8 +208,10 @@ export default function RegistrationForm({ isOpen, onClose, ctaName }: Registrat
                   value={formData.pincode}
                   onChange={handleChange}
                   placeholder="5-6 digit pincode"
+                  inputMode="numeric"
                   maxLength={6}
-                  className={`w-full bg-white/5 border rounded-lg px-4 py-2.5 text-white placeholder-white/30 focus:outline-none focus:ring-2 transition-all ${
+                  autoComplete="postal-code"
+                  className={`w-full bg-white/5 border rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:ring-2 transition-all ${
                     errors.pincode
                       ? 'border-red-500/50 focus:ring-red-500/30'
                       : 'border-white/10 focus:ring-[#FF1F1F]/30 focus:border-[#FF1F1F]'
@@ -216,19 +222,19 @@ export default function RegistrationForm({ isOpen, onClose, ctaName }: Registrat
               </div>
 
               {/* Submit Button */}
-              <div className="flex gap-3 pt-4">
+              <div className="flex flex-col sm:flex-row gap-3 pt-4">
                 <button
                   type="button"
                   onClick={onClose}
                   disabled={loading}
-                  className="flex-1 px-4 py-2.5 border border-white/10 text-white font-semibold rounded-lg hover:bg-white/5 transition-colors disabled:opacity-50"
+                  className="flex-1 px-4 py-3 border border-white/10 text-white font-semibold rounded-lg hover:bg-white/5 transition-colors disabled:opacity-50"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 px-4 py-2.5 bg-[#FF1F1F] hover:bg-[#C70000] text-white font-semibold rounded-lg transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                  className="flex-1 px-4 py-3 bg-[#FF1F1F] hover:bg-[#C70000] text-white font-semibold rounded-lg transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
                 >
                   {loading ? (
                     <>
