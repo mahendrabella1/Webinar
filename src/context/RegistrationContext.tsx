@@ -1,32 +1,25 @@
-import { createContext, useContext, ReactNode, useState } from 'react';
-import RegistrationForm from '../components/RegistrationForm';
+import { createContext, useContext, ReactNode } from 'react';
+import { initiatePayment } from '../utils/payment';
 
 interface RegistrationContextType {
   openForm: (ctaName: string) => void;
-  closeForm: () => void;
-  isFormOpen: boolean;
-  ctaName: string;
 }
 
 const RegistrationContext = createContext<RegistrationContextType | undefined>(undefined);
 
 export function RegistrationProvider({ children }: { children: ReactNode }) {
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const [ctaName, setCtaName] = useState('Secure My Seat');
-
   const openForm = (name: string) => {
-    setCtaName(name);
-    setIsFormOpen(true);
-  };
-
-  const closeForm = () => {
-    setIsFormOpen(false);
+    initiatePayment(name, {
+      mobile: '',
+      email: '',
+      institution: '',
+      pincode: '',
+    });
   };
 
   return (
-    <RegistrationContext.Provider value={{ openForm, closeForm, isFormOpen, ctaName }}>
+    <RegistrationContext.Provider value={{ openForm }}>
       {children}
-      <RegistrationForm isOpen={isFormOpen} onClose={closeForm} ctaName={ctaName} />
     </RegistrationContext.Provider>
   );
 }
