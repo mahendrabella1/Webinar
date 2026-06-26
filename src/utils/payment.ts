@@ -2,12 +2,12 @@
 export const RAZORPAY_CONFIG = {
   KEY_ID: 'rzp_live_T4fgWI2uotntDG',
   KEY_SECRET: 'KQWPCNCW2sg63Xi4VMSqZXmN',
-  AMOUNT: 299 * 100, // Amount in paise (299 INR)
+  AMOUNT: 1 * 100, // Amount in paise (1 INR)
 };
 
 // WhatsApp configuration
 export const WHATSAPP_CONFIG = {
-  MESSAGE: 'Join the OneGrasp webinar: https://chat.whatsapp.com/LcZg2zE0KrpJsFh8HjB9hP',
+  INVITE_URL: 'https://chat.whatsapp.com/LcZg2zE0KrpJsFh8HjB9hP',
 };
 
 export interface PaymentDetails {
@@ -75,6 +75,5 @@ export const initiatePayment = (
 };
 
 export const redirectToWhatsApp = () => {
-  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(WHATSAPP_CONFIG.MESSAGE)}`;
-  window.location.href = whatsappUrl;
+  window.location.href = WHATSAPP_CONFIG.INVITE_URL;
 };
