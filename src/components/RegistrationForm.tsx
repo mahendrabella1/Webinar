@@ -127,8 +127,8 @@ export default function RegistrationForm({ isOpen, onClose, ctaName }: Registrat
             className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
           >
             <div className="w-full max-w-md rounded-3xl bg-[#0D0D0D] border border-white/10 shadow-2xl p-4 sm:p-6 md:p-8 overflow-hidden max-h-[calc(100vh-3.5rem)] overflow-y-auto">
-            {/* Header */}
-            <div className="flex items-center justify-between mb-6">
+              {/* Header */}
+              <div className="flex items-center justify-between mb-6">
               <div>
                 <h2 className="text-xl sm:text-2xl font-black text-white">Register & Pay</h2>
                 <p className="text-white/50 text-sm mt-1">Complete your details and pay ₹1</p>
@@ -294,6 +294,7 @@ export default function RegistrationForm({ isOpen, onClose, ctaName }: Registrat
                 Your details will be sent to support@onegrasp.com and used for payment confirmation.
               </p>
             </form>
+          </div>
           </motion.div>
         </>
       )}
