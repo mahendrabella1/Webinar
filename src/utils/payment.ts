@@ -2,7 +2,7 @@
 export const RAZORPAY_CONFIG = {
   KEY_ID: 'rzp_live_T4fgWI2uotntDG',
   KEY_SECRET: 'KQWPCNCW2sg63Xi4VMSqZXmN',
-  AMOUNT: 1 * 100, // Amount in paise (299 INR)
+  AMOUNT: 299 * 100, // Amount in paise (299 INR)
 };
 
 // WhatsApp configuration
