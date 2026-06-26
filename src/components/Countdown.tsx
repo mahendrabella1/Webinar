@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useRegistration } from '../context/RegistrationContext';
+import { CTA_BUTTONS } from './RegistrationCTA';
 
 const EVENT_DATE = new Date('2026-07-23T18:00:00+05:30').getTime();
+
+const COUNTDOWN_CTA = CTA_BUTTONS[12];
 
 function getTimeLeft() {
   const now = Date.now();
@@ -46,6 +50,8 @@ export default function Countdown() {
     const id = setInterval(() => setTime(getTimeLeft()), 1000);
     return () => clearInterval(id);
   }, []);
+
+  const { openForm } = useRegistration();
 
   return (
     <section className="relative py-20 overflow-hidden bg-[#050505]">
@@ -106,6 +112,21 @@ export default function Countdown() {
         >
           23 July 2026 · 06:00 PM – 08:00 PM IST · Online Webinar
         </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+          className="mt-8 flex justify-center"
+        >
+          <button
+            onClick={() => openForm(COUNTDOWN_CTA)}
+            className="inline-flex items-center gap-2 bg-[#FF1F1F] hover:bg-[#C70000] text-white font-semibold px-8 py-3 rounded-sm transition-all duration-200 shadow-lg shadow-red-900/40"
+          >
+            {COUNTDOWN_CTA}
+          </button>
+        </motion.div>
       </div>
     </section>
   );

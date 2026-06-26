@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useRegistration } from '../context/RegistrationContext';
 
 const navLinks = [
   { label: 'Webinar', href: '#about' },
@@ -14,6 +15,7 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { openForm } = useRegistration();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -33,15 +35,11 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
         <a href="#" className="flex items-center gap-2 group">
-          <div className="relative w-9 h-9">
-            <div className="absolute inset-0 rounded-full bg-[#555] scale-75 translate-x-1" />
-            <div className="absolute inset-0 rounded-full bg-[#FF1F1F] flex items-center justify-center text-white font-black text-lg">
-              G
-            </div>
-          </div>
-          <span className="text-white font-bold text-xl tracking-tight">
-            One<span className="text-[#FF1F1F]">Grasp</span>
-          </span>
+          <img 
+            src="https://onegrasp.com/wp-content/uploads/2026/05/logo.png" 
+            alt="OneGrasp Logo"
+            className="h-8 md:h-10 w-auto"
+          />
         </a>
 
         {/* Desktop links */}
@@ -60,12 +58,12 @@ export default function Navbar() {
         </ul>
 
         {/* CTA */}
-        <a
-          href="#register"
+        <button
+          onClick={() => openForm('Navbar Register')}
           className="hidden md:inline-flex items-center gap-2 bg-[#FF1F1F] hover:bg-[#C70000] text-white text-sm font-semibold px-5 py-2.5 rounded-sm transition-all duration-200 shadow-lg shadow-red-900/30 hover:shadow-red-900/50"
         >
           Register Now
-        </a>
+        </button>
 
         {/* Mobile toggle */}
         <button
@@ -98,13 +96,15 @@ export default function Navbar() {
                   {l.label}
                 </a>
               ))}
-              <a
-                href="#register"
-                onClick={() => setOpen(false)}
-                className="bg-[#FF1F1F] hover:bg-[#C70000] text-white text-sm font-semibold px-5 py-2.5 rounded-sm text-center mt-2 transition-colors"
+              <button
+                onClick={() => {
+                  openForm('Mobile Menu - Register Now');
+                  setOpen(false);
+                }}
+                className="bg-[#FF1F1F] hover:bg-[#C70000] text-white text-sm font-semibold px-5 py-2.5 rounded-sm text-center mt-2 transition-colors cursor-pointer"
               >
                 Register Now
-              </a>
+              </button>
             </div>
           </motion.div>
         )}

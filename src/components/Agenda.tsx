@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
 import { Radio, BookOpen, TrendingUp, FileText, Award, HelpCircle, Mic } from 'lucide-react';
+import { useRegistration } from '../context/RegistrationContext';
+import { CTA_BUTTONS } from './RegistrationCTA';
 
 const sessions = [
   {
@@ -63,7 +65,10 @@ const tagColors: Record<string, string> = {
   'Next Steps': '#FF1F1F',
 };
 
+const AGENDA_CTA = CTA_BUTTONS[5];
+
 export default function Agenda() {
+  const { openForm } = useRegistration();
   return (
     <section id="agenda" className="relative py-24 overflow-hidden bg-[#050505]">
       {/* Background */}
@@ -155,6 +160,21 @@ export default function Agenda() {
               </motion.div>
             ))}
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+            className="mt-12 flex justify-center"
+          >
+            <button
+              onClick={() => openForm(AGENDA_CTA)}
+              className="inline-flex items-center gap-2 bg-[#FF1F1F] hover:bg-[#C70000] text-white font-semibold px-8 py-3 rounded-sm transition-all duration-200 shadow-lg shadow-red-900/40"
+            >
+              {AGENDA_CTA}
+            </button>
+          </motion.div>
         </div>
       </div>
     </section>

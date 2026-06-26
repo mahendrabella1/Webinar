@@ -5,7 +5,7 @@ import { Plus, Minus } from 'lucide-react';
 const faqs = [
   {
     q: 'What exactly is this webinar about?',
-    a: 'This is a free 2-hour live educational webinar titled "International Scientific Conferences: Importance & Awareness." It is designed to educate researchers, academics, students, and professionals about what scientific conferences are, why they matter, and how to participate and benefit from them.',
+    a: 'This is a paid 2-hour live educational masterclass titled "International Scientific Conferences: Importance & Awareness." It is designed to educate researchers, academics, students, and professionals about what scientific conferences are, why they matter, and how to participate and benefit from them.',
   },
   {
     q: 'Who should attend this webinar?',
@@ -13,7 +13,7 @@ const faqs = [
   },
   {
     q: 'Is this webinar free to attend?',
-    a: 'Yes, this webinar is completely free. Register through onegrasp.com/events to secure your spot. Seating is limited, so early registration is encouraged.',
+    a: 'No. This is a paid webinar with a registration fee of ₹299. Secure your access via the registration button to join the live session.',
   },
   {
     q: 'Will I receive a certificate for attending?',
@@ -103,7 +103,7 @@ export default function FAQ() {
             Frequently Asked
           </h2>
           <p className="text-[#A0A0A0] max-w-md mx-auto text-sm leading-relaxed">
-            Still unsure? Everything you need to know about this free educational webinar.
+            Still unsure? Everything you need to know about this paid educational masterclass.
             For anything else, reach us at{' '}
             <a href="mailto:support@onegrasp.com" className="text-[#FF1F1F] hover:underline">
               support@onegrasp.com

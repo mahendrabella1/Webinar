@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
 import { HelpCircle, Hash, Award, Mic, Globe, Database } from 'lucide-react';
+import { useRegistration } from '../context/RegistrationContext';
+import { CTA_BUTTONS } from './RegistrationCTA';
 
 const learnings = [
   {
@@ -21,8 +23,8 @@ const learnings = [
   {
     Icon: Award,
     title: 'Certificates',
-    subtitle: 'Participation & Presentation Certificates',
-    desc: 'Understand the difference between a participation certificate and a presentation certificate, how they are issued, and how to use them for career advancement.',
+    subtitle: 'Certificate of Participation',
+    desc: 'Every registered attendee receives an accredited participation certificate after joining the live webinar.',
     accent: '#FF1F1F',
     num: '03',
   },
@@ -52,7 +54,10 @@ const learnings = [
   },
 ];
 
+const WHY_ATTEND_CTA = CTA_BUTTONS[10];
+
 export default function WhyAttend() {
+  const { openForm } = useRegistration();
   return (
     <section id="benefits" className="relative py-28 overflow-hidden bg-[#050505]">
       {/* Background */}
@@ -151,14 +156,14 @@ export default function WhyAttend() {
         >
           <p className="text-white/60 text-sm text-center sm:text-left">
             All of this in a single{' '}
-            <span className="text-white font-semibold">free 2-hour live session</span> — no prior knowledge required.
+            <span className="text-white font-semibold">2-hour live masterclass</span> — no prior knowledge required.
           </p>
-          <a
-            href="#register"
+          <button
+            onClick={() => openForm(WHY_ATTEND_CTA)}
             className="flex-shrink-0 bg-[#FF1F1F] hover:bg-[#C70000] text-white text-sm font-bold px-6 py-2.5 rounded-sm transition-colors duration-200 shadow-lg shadow-red-900/30"
           >
-            Register Free
-          </a>
+            {WHY_ATTEND_CTA}
+          </button>
         </motion.div>
       </div>
     </section>

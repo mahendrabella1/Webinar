@@ -55,12 +55,11 @@ export default function OneGraspConferences() {
             {/* Left: Info */}
             <div className="flex-1 space-y-5">
               <div className="flex items-center gap-3">
-                <div className="relative w-12 h-12">
-                  <div className="absolute inset-0 rounded-full bg-[#555] scale-75 translate-x-1" />
-                  <div className="absolute inset-0 rounded-full bg-[#FF1F1F] flex items-center justify-center text-white font-black text-xl">
-                    G
-                  </div>
-                </div>
+                <img 
+                  src="https://onegrasp.com/wp-content/uploads/2026/05/logo.png" 
+                  alt="OneGrasp Logo"
+                  className="h-12 w-auto"
+                />
                 <div>
                   <h3 className="text-white font-black text-2xl">
                     One<span className="text-[#FF1F1F]">Grasp</span>
@@ -79,7 +78,7 @@ export default function OneGraspConferences() {
               {/* Key benefits */}
               <div className="grid sm:grid-cols-2 gap-4 pt-2">
                 {[
-                  { Icon: Award, title: 'Certificates', desc: 'Participation & Presentation certificates accredited for CPD' },
+                  { Icon: Award, title: 'Certificates', desc: 'Participant certificates accredited for CPD' },
                   { Icon: FileText, title: 'DOI for Abstracts', desc: 'Crossref DOI assigned to every accepted abstract' },
                   { Icon: Globe, title: 'Global Indexing', desc: 'Google Scholar & 10+ international directories' },
                   { Icon: Calendar, title: 'Upcoming Events', desc: 'Multiple conferences throughout the year' },

@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion';
 import { Calendar, Clock, Users, ArrowRight, Video } from 'lucide-react';
+import { useRegistration } from '../context/RegistrationContext';
 
 const POSTER = '/images/ChatGPT_Image_Jun_22,_2026,_02_41_43_PM.png';
 
 export default function Hero() {
+  const { openForm } = useRegistration();
   return (
     <section
       id="about"
@@ -38,14 +40,12 @@ export default function Hero() {
             >
               <span className="inline-flex items-center gap-2 bg-[#FF1F1F] text-white text-xs font-bold uppercase tracking-[0.15em] px-4 py-2 rounded-sm shadow-lg shadow-red-900/40">
                 <Video size={12} />
-                Free Live Webinar
+                Live Webinar
               </span>
-              <span className="text-white/40 text-xs font-medium">2 Hours · Online · No Cost</span>
+              <span className="text-white/40 text-xs font-medium">2 Hours · Online · ₹299</span>
             </motion.div>
-
-            {/* Headline */}
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
               className="space-y-2"
@@ -78,7 +78,7 @@ export default function Hero() {
               </div>
               <div className="flex items-center gap-2 bg-[#0D0D0D] border border-white/[0.12] rounded px-4 py-2">
                 <Users size={14} className="text-[#FF1F1F]" />
-                <span className="text-white text-sm font-medium">100+ Expected</span>
+                <span className="text-white text-sm font-medium">1000+ Expected</span>
               </div>
             </motion.div>
 
@@ -91,7 +91,7 @@ export default function Hero() {
             >
               What actually happens at an international scientific conference? How do researchers
               get a DOI? How do you become a keynote speaker? If you've ever asked these questions,
-              this free 2-hour webinar is for you.
+              this 2-hour webinar costs ₹299.
             </motion.p>
 
             {/* What you'll learn */}
@@ -105,7 +105,7 @@ export default function Hero() {
               {[
                 'What are scientific conferences & why they exist',
                 'How to submit research & get a Crossref DOI',
-                'Participation vs Presentation certificates',
+                'Certificate of participation for attendees',
                 'CPD credits & academic indexing explained',
                 'Career & research visibility benefits',
               ].map((item, i) => (
@@ -123,35 +123,23 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="flex flex-wrap gap-4 pt-3"
             >
-              <a
-                href="#register"
+              <button
+                onClick={() => openForm('Secure My Seat')}
                 className="group inline-flex items-center gap-2 bg-[#FF1F1F] hover:bg-[#C70000] text-white font-bold text-base px-8 py-3.5 rounded-sm transition-all duration-200 shadow-lg shadow-red-900/40 hover:gap-3"
               >
-                Register for Free
+                Secure My Seat
                 <ArrowRight size={16} />
-              </a>
-              <a
-                href="#agenda"
-                className="inline-flex items-center gap-2 border border-white/25 hover:border-white/50 text-white/80 font-semibold px-8 py-3.5 rounded-sm transition-all duration-200 hover:bg-white/5"
-              >
-                View Agenda
-              </a>
-            </motion.div>
+              </button>
 
-            {/* Organizer */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="flex items-center gap-3 pt-2"
-            >
-              <p className="text-white/40 text-sm">
-                Conducted by{' '}
-                <span className="text-white font-bold">
-                  One<span className="text-[#FF1F1F]">Grasp</span>
-                </span>{' '}
-                — International Scientific Conferences
-              </p>
+              <div className="flex items-center gap-3 pt-2">
+                <p className="text-white/40 text-sm">
+                  Conducted by{' '}
+                  <span className="text-white font-bold">
+                    One<span className="text-[#FF1F1F]">Grasp</span>
+                  </span>{' '}
+                  — International Scientific Conferences
+                </p>
+              </div>
             </motion.div>
           </div>
 
@@ -179,7 +167,7 @@ export default function Hero() {
               {/* Badge on image */}
               <div className="absolute top-5 left-5">
                 <span className="bg-[#FF1F1F] text-white text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-sm shadow-lg">
-                  Free Webinar
+                  Live Webinar
                 </span>
               </div>
               <div className="absolute top-5 right-5">

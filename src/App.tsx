@@ -1,7 +1,7 @@
+import { RegistrationProvider } from './context/RegistrationContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Countdown from './components/Countdown';
-import WhyAttend from './components/WhyAttend';
 import Speakers from './components/Speakers';
 import Agenda from './components/Agenda';
 import ResearchAreas from './components/ResearchAreas';
@@ -11,14 +11,13 @@ import RegistrationCTA from './components/RegistrationCTA';
 import OneGraspConferences from './components/OneGraspConferences';
 import Footer from './components/Footer';
 
-export default function App() {
+function AppContent() {
   return (
     <div className="bg-[#050505] min-h-screen font-sans antialiased">
       <Navbar />
       {/* Webinar Landing */}
       <Hero />
       <Countdown />
-      <WhyAttend />
       <Speakers />
       <Agenda />
       <ResearchAreas />
@@ -29,5 +28,13 @@ export default function App() {
       <OneGraspConferences />
       <Footer />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <RegistrationProvider>
+      <AppContent />
+    </RegistrationProvider>
   );
 }

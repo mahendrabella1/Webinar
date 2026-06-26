@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
+import { useRegistration } from '../context/RegistrationContext';
+import { CTA_BUTTONS } from './RegistrationCTA';
 
 const stats = [
   { value: 4, suffix: '+', label: 'Expert Panelists', desc: 'Experienced academics & researchers' },
   { value: 18, suffix: '+', label: 'Topics Covered', desc: 'Across the 2-hour session' },
-  { value: 100, suffix: '+', label: 'Professionals Expected', desc: 'From diverse disciplines' },
+  { value: 1000, suffix: '+', label: 'Professionals Expected', desc: 'From diverse disciplines' },
   { value: 20, suffix: '+', label: 'Countries Represented', desc: 'Global online attendance' },
 ];
 
@@ -38,7 +41,10 @@ function AnimatedNumber({ value, suffix }: { value: number; suffix: string }) {
   );
 }
 
+const HIGHLIGHTS_CTA = CTA_BUTTONS[14];
+
 export default function Highlights() {
+  const { openForm } = useRegistration();
   return (
     <section className="relative py-28 overflow-hidden bg-[#050505]">
       {/* Background */}
@@ -123,13 +129,30 @@ export default function Highlights() {
           <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/85 via-[#050505]/40 to-[#050505]/85" />
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-4 text-center">
             <span className="text-[#FF1F1F] text-xs font-bold uppercase tracking-[0.3em]">
-              23 July 2026 · Free to Attend
+              23 July 2026 · ₹299 Access
             </span>
             <p className="text-white font-black text-2xl sm:text-3xl uppercase tracking-wide">
               Educating Professionals Across the Globe
             </p>
             <p className="text-white/50 text-sm">Online Webinar · 06:00 PM – 08:00 PM IST</p>
           </div>
+        </motion.div>
+
+        {/* CTA Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.6, duration: 0.6 }}
+          className="mt-10 text-center"
+        >
+          <button
+            onClick={() => openForm(HIGHLIGHTS_CTA)}
+            className="inline-flex items-center gap-2 bg-[#FF1F1F] hover:bg-[#C70000] text-white font-bold px-8 py-3.5 rounded-sm transition-all duration-200 shadow-lg shadow-red-900/40 hover:gap-3"
+          >
+            {HIGHLIGHTS_CTA}
+            <ArrowRight size={18} />
+          </button>
         </motion.div>
       </div>
     </section>

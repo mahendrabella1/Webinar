@@ -1,6 +1,8 @@
 import { Mail, Phone, Globe, ArrowRight } from 'lucide-react';
+import { useRegistration } from '../context/RegistrationContext';
 
 export default function Footer() {
+  const { openForm } = useRegistration();
   return (
     <footer className="bg-[#080808] border-t border-white/[0.06]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
@@ -8,18 +10,11 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2 space-y-5">
             <div className="flex items-center gap-2">
-              <div className="relative w-9 h-9">
-                <div className="absolute inset-0 rounded-full bg-[#555] scale-75 translate-x-1" />
-                <div className="absolute inset-0 rounded-full bg-[#FF1F1F] flex items-center justify-center text-white font-black text-lg">
-                  G
-                </div>
-              </div>
-              <div>
-                <span className="text-white font-bold text-xl tracking-tight">
-                  One<span className="text-[#FF1F1F]">Grasp</span>
-                </span>
-                <span className="text-white/20 text-xs ml-1">™</span>
-              </div>
+              <img 
+                src="https://onegrasp.com/wp-content/uploads/2026/05/logo.png" 
+                alt="OneGrasp Logo"
+                className="h-10 w-auto"
+              />
             </div>
             <p className="text-[#A0A0A0] text-xs uppercase tracking-[0.25em] font-medium">
               Learn &nbsp;·&nbsp; Connect &nbsp;·&nbsp; Grow
@@ -32,19 +27,19 @@ export default function Footer() {
             {/* Webinar detail card */}
             <div className="bg-[#0D0D0D] border border-[#FF1F1F]/20 rounded-lg p-4">
               <p className="text-[#FF1F1F] text-[10px] font-bold uppercase tracking-widest mb-2">
-                Upcoming Free Webinar
+                Upcoming Webinar
               </p>
               <p className="text-white font-bold text-sm">
                 International Scientific Conferences: Importance & Awareness
               </p>
               <p className="text-[#A0A0A0] text-xs mt-1">23 July 2026 · 06:00–08:00 PM IST · Online</p>
-              <a
-                href="#register"
-                className="mt-3 inline-flex items-center gap-1.5 text-[#FF1F1F] text-xs font-bold hover:gap-2.5 transition-all duration-200"
+              <button
+                onClick={() => openForm('Footer - Register Today')}
+                className="mt-3 inline-flex items-center gap-1.5 text-[#FF1F1F] text-xs font-bold hover:gap-2.5 transition-all duration-200 cursor-pointer bg-none border-none p-0"
               >
-                Register Free
+                Secure My Seat
                 <ArrowRight size={11} />
-              </a>
+              </button>
             </div>
           </div>
 
@@ -59,7 +54,6 @@ export default function Footer() {
                 { label: 'Expert Speakers', href: '#speakers' },
                 { label: 'Topics Covered', href: '#research' },
                 { label: 'FAQ', href: '#faq' },
-                { label: 'Register Free', href: '#register' },
               ].map((l) => (
                 <li key={l.href}>
                   <a
@@ -71,6 +65,15 @@ export default function Footer() {
                   </a>
                 </li>
               ))}
+              <li>
+                <button
+                  onClick={() => openForm('Footer Quick Links - Register')}
+                  className="text-[#A0A0A0] hover:text-white text-sm transition-colors duration-200 flex items-center gap-2 group cursor-pointer bg-none border-none p-0"
+                >
+                  <span className="w-4 h-px bg-[#FF1F1F]/40 group-hover:w-6 group-hover:bg-[#FF1F1F] transition-all duration-200" />
+                  Register Free
+                </button>
+              </li>
             </ul>
           </div>
 
