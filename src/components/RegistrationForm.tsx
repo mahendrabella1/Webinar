@@ -1,18 +1,12 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
-import { RAZORPAY_CONFIG, redirectToWhatsApp } from '../utils/payment';
+import { initiatePayment } from '../utils/payment';
 
 interface RegistrationFormProps {
   isOpen: boolean;
   onClose: () => void;
   ctaName: string;
-}
-
-declare global {
-  interface Window {
-    Razorpay: any;
-  }
 }
 
 export default function RegistrationForm({ isOpen, onClose, ctaName }: RegistrationFormProps) {
@@ -62,45 +56,17 @@ export default function RegistrationForm({ isOpen, onClose, ctaName }: Registrat
       })
     );
 
-    // Initiate Razorpay payment
-    const options = {
-      key: RAZORPAY_CONFIG.KEY_ID,
-      amount: RAZORPAY_CONFIG.AMOUNT,
-      currency: 'INR',
-      name: 'OneGrasp Webinar',
-      description: `International Scientific Conferences Webinar - ${ctaName}`,
-      image: 'https://onegrasp.com/wp-content/uploads/2026/05/logo.png',
-      prefill: {
-        name: formData.institution,
-        email: formData.email,
-        contact: formData.mobile,
-      },
-      theme: {
-        color: '#FF1F1F',
-      },
-      handler: function (response: any) {
-        // Payment successful
-        alert(
-          `Payment successful! Registration details:\n\nMobile: ${formData.mobile}\nEmail: ${formData.email}\nInstitution: ${formData.institution}\nPincode: ${formData.pincode}`
-        );
-
-        // Redirect to WhatsApp group after successful payment
-        redirectToWhatsApp();
-        onClose();
-        setFormData({ mobile: '', email: '', institution: '', pincode: '' });
-        setLoading(false);
-      },
-      modal: {
-        ondismiss: function () {
-          setLoading(false);
-          console.log('Payment modal closed');
-        },
-      },
-    };
-
     try {
-      const rzp = new window.Razorpay(options);
-      rzp.open();
+      initiatePayment(ctaName, formData, {
+        onSuccess: () => {
+          onClose();
+          setFormData({ mobile: '', email: '', institution: '', pincode: '' });
+          setLoading(false);
+        },
+        onDismiss: () => {
+          setLoading(false);
+        },
+      });
     } catch (error) {
       console.error('Error initializing Razorpay:', error);
       alert('Failed to open payment. Please try again.');

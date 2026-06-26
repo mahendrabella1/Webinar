@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
-import { Calendar, Clock, Users, ArrowRight, Video } from 'lucide-react';
+import { Calendar, Clock, Users, ArrowRight } from 'lucide-react';
 import { useRegistration } from '../context/RegistrationContext';
+import { initiatePayment } from '../utils/payment';
 
-const POSTER = '/images/ChatGPT_Image_Jun_22,_2026,_02_41_43_PM.png';
+const POSTER = '/images/hero%20poster.png';
 
 export default function Hero() {
   const { openForm } = useRegistration();
@@ -31,17 +32,12 @@ export default function Hero() {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 items-center">
           {/* Left: Webinar info */}
           <div className="space-y-5">
-            {/* Live Webinar badge */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               className="flex items-center gap-3"
             >
-              <span className="inline-flex items-center gap-2 bg-[#FF1F1F] text-white text-xs font-bold uppercase tracking-[0.15em] px-4 py-2 rounded-sm shadow-lg shadow-red-900/40">
-                <Video size={12} />
-                Live Webinar
-              </span>
               <span className="text-white/40 text-xs font-medium">2 Hours · Online · ₹299</span>
             </motion.div>
             <motion.div
@@ -148,50 +144,24 @@ export default function Hero() {
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative flex justify-end"
+            className="relative flex justify-end lg:justify-center"
           >
-            <motion.div
+            <motion.button
+              type="button"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="group relative overflow-hidden rounded-xl border-2 border-[#FF1F1F]/40 shadow-[0_0_60px_rgba(255,31,31,0.25)] hover:border-[#FF1F1F]/70 transition-all duration-400 w-full"
-              style={{ aspectRatio: '3/4' }}
+              onClick={() => initiatePayment('Hero Poster')}
+              className="group relative w-full max-w-[520px] text-left"
+              style={{ aspectRatio: '4 / 5' }}
             >
               <img
                 src={POSTER}
                 alt="Webinar flyer"
-                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-full object-contain object-center transition-transform duration-700 group-hover:scale-105"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-              {/* Badge on image */}
-              <div className="absolute top-5 left-5">
-                <span className="bg-[#FF1F1F] text-white text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-sm shadow-lg">
-                  Live Webinar
-                </span>
-              </div>
-              <div className="absolute top-5 right-5">
-                <span className="bg-white/10 backdrop-blur-sm text-white text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-sm border border-white/20">
-                  23 July 2026
-                </span>
-              </div>
-            </motion.div>
-
-            {/* Floating badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1.0, duration: 0.5 }}
-              className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-[#0D0D0D] border border-[#FF1F1F]/30 rounded-full px-8 py-2.5 shadow-xl"
-            >
-              <div className="flex items-center gap-2">
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#FF1F1F]"></span>
-                </span>
-                <span className="text-white text-sm font-bold uppercase tracking-widest">Live Online Webinar</span>
-              </div>
-            </motion.div>
+            </motion.button>
           </motion.div>
         </div>
       </div>

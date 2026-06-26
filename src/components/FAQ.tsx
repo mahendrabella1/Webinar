@@ -17,11 +17,7 @@ const faqs = [
   },
   {
     q: 'Will I receive a certificate for attending?',
-    a: 'Yes. Every registered attendee who joins the live session receives a Certificate of Participation from OneGrasp. This is an accredited certificate you can use for CPD credit claims and academic records.',
-  },
-  {
-    q: 'Will the webinar be recorded?',
-    a: 'Yes. Registered participants will receive a link to the full session recording within 48–72 hours after the event via their registered email address.',
+    a: 'Yes. Every registered attendee who joins the live session receives a Certificate of Participation from OneGrasp. This certificate confirms your attendance and learning participation.',
   },
   {
     q: 'How will I receive the joining link?',

@@ -2,7 +2,7 @@
 export const RAZORPAY_CONFIG = {
   KEY_ID: 'rzp_live_T4fgWI2uotntDG',
   KEY_SECRET: 'KQWPCNCW2sg63Xi4VMSqZXmN',
-  AMOUNT: 299 * 100, // Amount in paise (299 INR)
+  AMOUNT: 1 * 100, // Amount in paise (299 INR)
 };
 
 // WhatsApp configuration
@@ -11,9 +11,10 @@ export const WHATSAPP_CONFIG = {
 };
 
 export interface PaymentDetails {
-  name: string;
+  mobile: string;
   email: string;
-  phone: string;
+  institution: string;
+  pincode: string;
 }
 
 declare global {
@@ -22,7 +23,14 @@ declare global {
   }
 }
 
-export const initiatePayment = (cta: string = 'Register') => {
+export const initiatePayment = (
+  cta: string = 'Register',
+  registrationData?: PaymentDetails,
+  callbacks?: {
+    onSuccess?: () => void;
+    onDismiss?: () => void;
+  }
+) => {
   const options = {
     key: RAZORPAY_CONFIG.KEY_ID,
     amount: RAZORPAY_CONFIG.AMOUNT,
@@ -31,28 +39,26 @@ export const initiatePayment = (cta: string = 'Register') => {
     description: `International Scientific Conferences Webinar - ${cta}`,
     image: 'https://onegrasp.com/wp-content/uploads/2026/05/logo.png',
     prefill: {
-      name: '',
-      email: '',
-      contact: '',
+      name: registrationData?.institution || '',
+      email: registrationData?.email || '',
+      contact: registrationData?.mobile || '',
     },
     theme: {
       color: '#FF1F1F',
     },
     handler: function (response: any) {
-      // Payment successful - collect email and phone from Razorpay response
-      const userEmail = response.email || '';
-      const userPhone = response.contact || '';
+      const userEmail = response?.email || registrationData?.email || '';
+      const userPhone = response?.contact || registrationData?.mobile || '';
 
-      // Redirect to WhatsApp
-      if (userPhone) {
-        redirectToWhatsApp(userPhone);
-      } else {
-        alert('Thank you for registering! Check your email for more details.');
-        redirectToWhatsApp();
-      }
+      alert(
+        `Payment successful!\n\nEmail: ${userEmail}\nMobile: ${userPhone}\nInstitution: ${registrationData?.institution || ''}\nPincode: ${registrationData?.pincode || ''}`
+      );
+      callbacks?.onSuccess?.();
+      redirectToWhatsApp();
     },
     modal: {
       ondismiss: function () {
+        callbacks?.onDismiss?.();
         console.log('Payment modal closed');
       },
     },

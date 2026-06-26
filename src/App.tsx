@@ -3,11 +3,10 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Countdown from './components/Countdown';
 import Speakers from './components/Speakers';
+import Highlights from './components/Highlights';
 import Agenda from './components/Agenda';
 import ResearchAreas from './components/ResearchAreas';
-import Highlights from './components/Highlights';
 import FAQ from './components/FAQ';
-import RegistrationCTA from './components/RegistrationCTA';
 import OneGraspConferences from './components/OneGraspConferences';
 import Footer from './components/Footer';
 
@@ -19,11 +18,10 @@ function AppContent() {
       <Hero />
       <Countdown />
       <Speakers />
+      <Highlights />
       <Agenda />
       <ResearchAreas />
-      <Highlights />
       <FAQ />
-      <RegistrationCTA />
       {/* After Webinar: OneGrasp Conferences */}
       <OneGraspConferences />
       <Footer />

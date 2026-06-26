@@ -16,13 +16,6 @@ export default function Footer() {
                 className="h-10 w-auto"
               />
             </div>
-            <p className="text-[#A0A0A0] text-xs uppercase tracking-[0.25em] font-medium">
-              Learn &nbsp;·&nbsp; Connect &nbsp;·&nbsp; Grow
-            </p>
-            <p className="text-[#A0A0A0] text-sm leading-relaxed max-w-xs">
-              OneGrasp organizes international scientific conferences and educational webinars,
-              helping researchers and professionals build global academic visibility.
-            </p>
 
             {/* Webinar detail card */}
             <div className="bg-[#0D0D0D] border border-[#FF1F1F]/20 rounded-lg p-4">

@@ -4,35 +4,42 @@ import { CTA_BUTTONS } from './RegistrationCTA';
 
 const speakers = [
   {
-    photo: 'https://onegrasp.com/wp-content/uploads/2026/06/Dr.-Rudrarup-Gupta-1.jpg',
+    photo: '/images/Speaker1.png',
+    fit: 'object-contain',
     name: 'Dr. Rudrarup Gupta',
-    domain: 'Rural Development & Engineering',
+    domain: 'Business & Economics Expert',
     role: 'Faculty, Founder & Guest Lecturer',
-    org: 'Tagore School · JIS Group · Skill Dev Interface',
+    org: 'Tagore School of Rural Development and Agricultural Management, Kalyani University, Nadia',
+    location: 'Kolkata, India',
     topic: 'Interdisciplinary Research',
   },
   {
-    photo: 'https://onegrasp.com/wp-content/uploads/2026/06/WhatsApp-Image-2026-06-10-at-3.32.36-PM.jpeg',
+    photo: '/images/speaker2.png',
     name: 'Dr. G N Manjunath',
     domain: 'Professor of Pharmacology',
-    role: 'Faculty',
+    role: 'Professor of Pharmacology',
     org: 'Sri Siddhartha Medical College, Tumkur',
+    location: 'Karnataka, India',
     topic: 'Medical Research & Conferences',
   },
   {
-    photo: 'https://onegrasp.com/wp-content/uploads/2026/06/chatrvedi.jpg',
+    photo: '/images/speaker3.png',
+    fit: 'object-contain',
     name: 'Dr. D K Chaturvedi',
-    domain: 'Engineering Education',
+    domain: 'Engineering & Technology',
     role: 'Dean, Faculty of Engineering',
     org: 'Dayalbagh Educational Institute, Agra',
+    location: 'Agra, India',
     topic: 'Academic Publishing & Conferences',
   },
   {
-    photo: 'https://onegrasp.com/wp-content/uploads/2026/06/2-Dr-Bishnu.jpg',
+    photo: '/images/speaker4.png',
+    fit: 'object-contain',
     name: 'Dr. Bishnu Pada Bose',
     domain: 'Engineering & Technology',
     role: 'Professor, Partner & Advisor',
     org: 'Invosystems',
+    location: 'Bangalore, India',
     topic: 'Conference Research Impact',
   },
 ];
@@ -42,7 +49,7 @@ const SPEAKERS_CTA = CTA_BUTTONS[2];
 export default function Speakers() {
   const { openForm } = useRegistration();
   return (
-    <section id="speakers" className="bg-[#080808] py-24 relative overflow-hidden">
+    <section id="speakers" className="bg-[#080808] py-16 relative overflow-hidden">
       {/* Background texture */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-[#FF1F1F]/40 to-transparent" />
@@ -83,47 +90,47 @@ export default function Speakers() {
           </button>
         </motion.div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {speakers.map((s) => (
-            <motion.div
-              key={s.name}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="group relative overflow-hidden rounded-3xl border border-white/[0.08] bg-[#090909]/80 shadow-2xl shadow-black/30"
-            >
-              <div className="relative h-80 sm:h-72">
-                <img
-                  src={s.photo}
-                  alt={s.name}
-                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0D] via-[#0D0D0D]/20 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#FF1F1F]/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
+        <div className="space-y-8">
+          {speakers.map((s, index) => {
+            const reversed = index % 2 === 1;
+            return (
+              <motion.div
+                key={s.name}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="group mx-auto max-w-5xl overflow-hidden rounded-3xl border border-white/[0.08] bg-[#090909]/80 shadow-xl shadow-black/20"
+              >
+                <div className={`grid gap-4 lg:grid-cols-[1.1fr_0.9fr] ${reversed ? 'lg:grid-cols-[0.9fr_1.1fr] text-right' : ''}`}>
+                  <div className={`flex items-center justify-center p-6 sm:p-8 ${reversed ? 'lg:order-2' : ''}`}>
+                    <div className="relative w-56 h-56 sm:w-64 sm:h-64 lg:w-72 lg:h-72 rounded-full overflow-hidden bg-[#111] shadow-inner">
+                      <img
+                        src={s.photo}
+                        alt={s.name}
+                        className={`w-full h-full ${s.fit || 'object-cover'} object-center bg-[#111] transition-transform duration-700 group-hover:scale-105`}
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0D]/20 via-transparent to-transparent" />
+                    </div>
+                  </div>
 
-                <div className="absolute top-3 left-3">
-                  <span className="bg-[#FF1F1F] text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-sm">
-                    {s.topic}
-                  </span>
+                  <div className={`p-6 flex flex-col justify-center ${reversed ? 'lg:text-left' : ''}`}>
+                    <div className="mb-3">
+                      <p className="text-[#FF1F1F] text-xs uppercase tracking-[0.3em] mb-2">{s.topic}</p>
+                      <h3 className="text-white text-xl font-black tracking-tight mb-2">{s.name}</h3>
+                      <p className="text-[#FF1F1F] text-sm font-semibold uppercase mb-3">{s.domain}</p>
+                    </div>
+                    <div className="space-y-3 text-sm text-[#A0A0A0] leading-relaxed">
+                      <p>{s.role}</p>
+                      <p>{s.org}</p>
+                      {s.location ? <p className="text-white/60">{s.location}</p> : null}
+                    </div>
+                  </div>
                 </div>
-              </div>
-
-              <div className="p-5 pt-4">
-                <h3 className="text-white font-bold text-base leading-snug mb-1">{s.name}</h3>
-                <p className="text-[#FF1F1F] text-xs font-semibold mb-2 leading-snug">{s.domain}</p>
-                <p className="text-[#A0A0A0] text-xs leading-relaxed">
-                  {s.role}
-                  <br />
-                  <span className="text-white/40">{s.org}</span>
-                </p>
-              </div>
-
-              <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#FF1F1F]/0 group-hover:border-[#FF1F1F]/60 transition-colors duration-300 rounded-tl-xl" />
-              <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#FF1F1F]/0 group-hover:border-[#FF1F1F]/60 transition-colors duration-300 rounded-tr-xl" />
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
 
         <motion.p
