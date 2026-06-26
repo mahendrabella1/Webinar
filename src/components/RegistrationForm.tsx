@@ -11,6 +11,7 @@ interface RegistrationFormProps {
 
 export default function RegistrationForm({ isOpen, onClose, ctaName }: RegistrationFormProps) {
   const [formData, setFormData] = useState({
+    name: '',
     mobile: '',
     email: '',
     institution: '',
@@ -22,6 +23,9 @@ export default function RegistrationForm({ isOpen, onClose, ctaName }: Registrat
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
 
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required';
+    }
     if (!formData.mobile || formData.mobile.length < 10) {
       newErrors.mobile = 'Valid mobile number required (10 digits)';
     }
@@ -46,21 +50,33 @@ export default function RegistrationForm({ isOpen, onClose, ctaName }: Registrat
 
     setLoading(true);
 
-    // Store registration details in localStorage
-    localStorage.setItem(
-      'registrationData',
-      JSON.stringify({
-        ...formData,
-        ctaName,
-        timestamp: new Date().toISOString(),
-      })
-    );
-
     try {
+      await fetch('/api/send-registration', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          ctaName,
+          amount: '₹299',
+        }),
+      });
+
+      localStorage.setItem(
+        'registrationData',
+        JSON.stringify({
+          ...formData,
+          ctaName,
+          amount: '₹299',
+          timestamp: new Date().toISOString(),
+        })
+      );
+
       initiatePayment(ctaName, formData, {
         onSuccess: () => {
           onClose();
-          setFormData({ mobile: '', email: '', institution: '', pincode: '' });
+          setFormData({ name: '', mobile: '', email: '', institution: '', pincode: '' });
           setLoading(false);
         },
         onDismiss: () => {
@@ -68,8 +84,8 @@ export default function RegistrationForm({ isOpen, onClose, ctaName }: Registrat
         },
       });
     } catch (error) {
-      console.error('Error initializing Razorpay:', error);
-      alert('Failed to open payment. Please try again.');
+      console.error('Error processing registration:', error);
+      alert('Unable to complete registration. Please try again.');
       setLoading(false);
     }
   };
@@ -113,8 +129,8 @@ export default function RegistrationForm({ isOpen, onClose, ctaName }: Registrat
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h2 className="text-xl sm:text-2xl font-black text-white">Quick Registration</h2>
-                <p className="text-white/50 text-sm mt-1">Complete your details to proceed securely</p>
+                <h2 className="text-xl sm:text-2xl font-black text-white">Register & Pay</h2>
+                <p className="text-white/50 text-sm mt-1">Complete your details and pay ₹299</p>
               </div>
               <button
                 onClick={onClose}
@@ -127,6 +143,32 @@ export default function RegistrationForm({ isOpen, onClose, ctaName }: Registrat
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="rounded-lg border border-[#FF1F1F]/20 bg-[#FF1F1F]/10 px-4 py-3 text-center text-sm font-semibold text-[#FFB3B3]">
+                Pay ₹299 to secure your spot
+              </div>
+
+              {/* Name */}
+              <div>
+                <label className="block text-sm font-semibold text-white mb-2">
+                  Full Name *
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Your full name"
+                  autoComplete="name"
+                  className={`w-full bg-white/5 border rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:ring-2 transition-all ${
+                    errors.name
+                      ? 'border-red-500/50 focus:ring-red-500/30'
+                      : 'border-white/10 focus:ring-[#FF1F1F]/30 focus:border-[#FF1F1F]'
+                  }`}
+                  disabled={loading}
+                />
+                {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
+              </div>
+
               {/* Mobile */}
               <div>
                 <label className="block text-sm font-semibold text-white mb-2">
@@ -248,7 +290,7 @@ export default function RegistrationForm({ isOpen, onClose, ctaName }: Registrat
               </div>
 
               <p className="text-white/40 text-xs text-center mt-4">
-                Your information is secure. We'll send confirmation to your email.
+                Your details will be sent to support@onegrasp.com and used for payment confirmation.
               </p>
             </form>
           </motion.div>

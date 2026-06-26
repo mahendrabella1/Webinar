@@ -11,6 +11,7 @@ export const WHATSAPP_CONFIG = {
 };
 
 export interface PaymentDetails {
+  name?: string;
   mobile: string;
   email: string;
   institution: string;
@@ -39,7 +40,7 @@ export const initiatePayment = (
     description: `International Scientific Conferences Webinar - ${cta}`,
     image: 'https://onegrasp.com/wp-content/uploads/2026/05/logo.png',
     prefill: {
-      name: registrationData?.institution || '',
+      name: registrationData?.name || registrationData?.institution || '',
       email: registrationData?.email || '',
       contact: registrationData?.mobile || '',
     },
