@@ -2,13 +2,12 @@
 export const RAZORPAY_CONFIG = {
   KEY_ID: 'rzp_live_T4fgWI2uotntDG',
   KEY_SECRET: 'KQWPCNCW2sg63Xi4VMSqZXmN',
-  AMOUNT: 1 * 100, // Amount in paise (1 INR)
+  AMOUNT: 299 * 100, // Amount in paise (299 INR)
 };
 
 // WhatsApp configuration
 export const WHATSAPP_CONFIG = {
-  MESSAGE: 'Join the OneGrasp webinar group: https://chat.whatsapp.com/LcZg2zE0KrpJsFh8HjB9hP',
-  WEB_FALLBACK: 'https://api.whatsapp.com/send?text=Join%20the%20OneGrasp%20webinar%20group%3A%20https%3A%2F%2Fchat.whatsapp.com%2FLcZg2zE0KrpJsFh8HjB9hP',
+  MESSAGE: 'Join the OneGrasp webinar: https://chat.whatsapp.com/LcZg2zE0KrpJsFh8HjB9hP',
 };
 
 export interface PaymentDetails {
@@ -76,17 +75,6 @@ export const initiatePayment = (
 };
 
 export const redirectToWhatsApp = () => {
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-    navigator.userAgent
-  );
-  const whatsappIntent = `whatsapp://send?text=${encodeURIComponent(WHATSAPP_CONFIG.MESSAGE)}`;
-
-  if (isMobile) {
-    window.location.href = whatsappIntent;
-    setTimeout(() => {
-      window.location.href = WHATSAPP_CONFIG.WEB_FALLBACK;
-    }, 1500);
-  } else {
-    window.location.href = WHATSAPP_CONFIG.WEB_FALLBACK;
-  }
+  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(WHATSAPP_CONFIG.MESSAGE)}`;
+  window.location.href = whatsappUrl;
 };
