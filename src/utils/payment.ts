@@ -47,12 +47,6 @@ export const initiatePayment = (
       color: '#FF1F1F',
     },
     handler: function (response: any) {
-      const userEmail = response?.email || registrationData?.email || '';
-      const userPhone = response?.contact || registrationData?.mobile || '';
-
-      alert(
-        `Payment successful!\n\nEmail: ${userEmail}\nMobile: ${userPhone}\nInstitution: ${registrationData?.institution || ''}\nPincode: ${registrationData?.pincode || ''}`
-      );
       callbacks?.onSuccess?.();
       redirectToWhatsApp();
     },
