@@ -36,9 +36,12 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="flex items-center gap-3"
+              className="flex flex-wrap items-center gap-3"
             >
-              <span className="text-white/40 text-xs font-medium">2 Hours · Online · ₹299</span>
+              <span className="text-white/40 text-xs font-medium">2 Hours · Online</span>
+              <span className="inline-flex items-center rounded-full bg-[#FF1F1F] px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-white shadow-lg shadow-red-900/30">
+                ₹299
+              </span>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
