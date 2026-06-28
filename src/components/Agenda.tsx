@@ -13,29 +13,37 @@ const sessions = [
   },
   {
     time: '06:10 PM',
-    title: 'What Are International Scientific Conferences?',
-    desc: 'A clear, structured explanation of scientific conferences — their purpose, who organizes them, how they differ from seminars, and why they are globally important.',
+    title: 'Why Research Conferences Matter in the AI Era & How OneGrasp Helps',
+    speaker: 'Dr. Rudrarup Gupta',
+    category: 'Business & Economics',
+    desc: 'A clear, structured explanation of scientific conferences — their purpose, who organizes them, how they differ from seminars, and why they are globally important in the age of AI.',
     Icon: BookOpen,
     tag: 'Education',
   },
   {
     time: '06:30 PM',
-    title: 'Why Should YOU Attend? Career & Research Impact',
-    desc: 'Real-world examples of how attending or presenting at a conference transformed careers, opened research collaborations, and built global academic reputations.',
+    title: 'Medication Errors in Patient Safety',
+    speaker: 'Dr. Manjunath',
+    category: 'Health & Medical',
+    desc: 'Real-world examples of how research conferences address critical patient safety issues and how attending transforms healthcare practices globally.',
     Icon: TrendingUp,
     tag: 'Impact',
   },
   {
     time: '07:00 PM',
-    title: 'How to Participate: Submission to Presentation',
-    desc: 'Step-by-step walkthrough of the entire process — writing an abstract, submitting it, getting reviewed, presenting your work, and what happens after the conference.',
+    title: 'Mental Health: Overcoming the Effects of Social Media and Poor Attention',
+    speaker: 'Dr. Chaturvedi',
+    category: 'Interdisciplinary',
+    desc: 'Expert insights on how interdisciplinary research conferences bring together solutions for contemporary mental health challenges in our digital world.',
     Icon: FileText,
     tag: 'How-To',
   },
   {
     time: '07:20 PM',
-    title: 'Deep Dive: DOI, CPD Certificates & Indexing',
-    desc: 'Expert explanation of Crossref DOI, CPD certification, and how your abstract gets indexed in Google Scholar and 10+ international research directories.',
+    title: 'Building a Successful Career Through Research and Global Networking',
+    speaker: 'Dr. Bishnu Pada Bose',
+    category: 'Engineering & Technology',
+    desc: 'Discover how engineering and technology professionals leverage international conferences to build careers, innovate, and connect with global leaders in their field.',
     Icon: Award,
     tag: 'Benefits',
   },
@@ -154,6 +162,13 @@ export default function Agenda() {
                         {s.tag}
                       </span>
                     </div>
+                    {s.speaker && (
+                      <div className="flex flex-wrap gap-2 mb-2 text-xs">
+                        <span className="text-[#FF1F1F] font-semibold">{s.speaker}</span>
+                        <span className="text-white/50">•</span>
+                        <span className="text-white/70">{s.category}</span>
+                      </div>
+                    )}
                     <p className="text-[#A0A0A0] text-sm leading-relaxed">{s.desc}</p>
                   </div>
                 </div>
