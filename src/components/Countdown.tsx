@@ -71,7 +71,33 @@ export default function Countdown() {
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#FF1F1F]/30 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#FF1F1F]/30 to-transparent" />
 
-      <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center relative">
+      <div className="max-w-6xl mx-auto px-6 lg:px-8 text-center relative">
+        {/* Benefits Section */}
+        <div className="mb-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[
+            'Certificate of Participation / Presentation',
+            'Get DOI (Crossref) for your abstract',
+            'CPD Certificate',
+            'Opportunity to Become a Keynote Speaker',
+            'Free Access to 170+ Millions of Metadata Records',
+            'Abstract Indexed in Google Scholar & 10+ Indexing Directories',
+          ].map((benefit, i) => (
+            <motion.div
+              key={benefit}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+              className="group relative bg-white/[0.03] border border-white/[0.1] rounded-lg p-4 hover:border-[#FF1F1F]/50 transition-all duration-300 hover:bg-white/[0.05]"
+            >
+              <div
+                className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#FF1F1F] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              />
+              <p className="text-white/85 text-sm font-medium leading-relaxed">{benefit}</p>
+            </motion.div>
+          ))}
+        </div>
+
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
