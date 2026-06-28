@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Award, FileText, Zap, Mic, Globe, Database } from 'lucide-react';
 import { useRegistration } from '../context/RegistrationContext';
 import { CTA_BUTTONS } from './RegistrationCTA';
 
@@ -72,30 +73,90 @@ export default function Countdown() {
       <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#FF1F1F]/30 to-transparent" />
 
       <div className="max-w-6xl mx-auto px-6 lg:px-8 text-center relative">
-        {/* Benefits Section */}
+        {/* Benefits Headline */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-12"
+        >
+          <p className="text-[#FF1F1F] text-xs font-bold uppercase tracking-[0.3em] mb-2">
+            When You Attend Conferences
+          </p>
+          <h3 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
+            You'll Get These <span className="text-[#FF1F1F]">6 Powerful Benefits</span>
+          </h3>
+        </motion.div>
+
+        {/* Benefits Grid */}
         <div className="mb-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
-            'Certificate of Participation / Presentation',
-            'Get DOI (Crossref) for your abstract',
-            'CPD Certificate',
-            'Opportunity to Become a Keynote Speaker',
-            'Free Access to 170+ Millions of Metadata Records',
-            'Abstract Indexed in Google Scholar & 10+ Indexing Directories',
-          ].map((benefit, i) => (
-            <motion.div
-              key={benefit}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="group relative bg-white/[0.03] border border-white/[0.1] rounded-lg p-4 hover:border-[#FF1F1F]/50 transition-all duration-300 hover:bg-white/[0.05]"
-            >
-              <div
-                className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#FF1F1F] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              />
-              <p className="text-white/85 text-sm font-medium leading-relaxed">{benefit}</p>
-            </motion.div>
-          ))}
+            {
+              icon: Award,
+              title: 'Certificate of Participation / Presentation',
+              color: '#FF1F1F',
+            },
+            {
+              icon: FileText,
+              title: 'Get DOI (Crossref) for your abstract',
+              color: '#FF6B6B',
+            },
+            {
+              icon: Zap,
+              title: 'CPD Certificate',
+              color: '#FF1F1F',
+            },
+            {
+              icon: Mic,
+              title: 'Opportunity to Become a Keynote Speaker',
+              color: '#FF6B6B',
+            },
+            {
+              icon: Globe,
+              title: 'Free Access to 170+ Millions of Metadata Records',
+              color: '#FF1F1F',
+            },
+            {
+              icon: Database,
+              title: 'Abstract Indexed in Google Scholar & 10+ Indexing Directories',
+              color: '#FF6B6B',
+            },
+          ].map((benefit, i) => {
+            const Icon = benefit.icon;
+            return (
+              <motion.div
+                key={benefit.title}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                className="group relative"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-[#FF1F1F]/20 to-[#FF6B6B]/10 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                <div className="relative bg-gradient-to-br from-[#0D0D0D]/95 to-[#0D0D0D]/80 backdrop-blur-sm border border-white/[0.12] rounded-xl p-6 hover:border-[#FF1F1F]/60 transition-all duration-300 group-hover:shadow-[0_8px_32px_rgba(255,31,31,0.15)] h-full flex flex-col items-center text-center">
+                  {/* Top accent line */}
+                  <div
+                    className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#FF1F1F] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  />
+                  
+                  {/* Icon */}
+                  <div className="mb-4 p-3 rounded-lg bg-gradient-to-br from-[#FF1F1F]/20 to-[#FF1F1F]/5 border border-[#FF1F1F]/30 group-hover:border-[#FF1F1F]/60 group-hover:shadow-[0_0_20px_rgba(255,31,31,0.3)] transition-all duration-300">
+                    <Icon size={28} style={{ color: benefit.color }} className="transition-transform group-hover:scale-110 duration-300" />
+                  </div>
+                  
+                  {/* Benefit Title */}
+                  <p className="text-white/90 text-sm font-bold leading-snug group-hover:text-white transition-colors duration-300">
+                    {benefit.title}
+                  </p>
+                  
+                  {/* Bottom accent */}
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-12 h-0.5 bg-gradient-to-r from-transparent via-[#FF1F1F]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
         <motion.div
