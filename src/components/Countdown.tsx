@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { FileText, Zap, Database } from 'lucide-react';
 import { useRegistration } from '../context/RegistrationContext';
 import { CTA_BUTTONS } from './RegistrationCTA';
 
@@ -84,38 +85,30 @@ export default function Countdown() {
             When You Attend Conferences
           </p>
           <h3 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
-            You'll Get These <span className="text-[#FF1F1F]">6 Powerful Benefits</span>
+            You'll Get These <span className="text-[#FF1F1F]">3 Key Benefits</span>
           </h3>
         </motion.div>
 
         {/* Benefits Grid */}
-        <div className="mb-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="mb-16 grid sm:grid-cols-3 gap-4">
           {[
             {
-              image: '/images/CPD.jpg',
-              title: 'Certificate of Participation / Presentation',
-            },
-            {
-              image: '/images/DOI.png',
+              icon: FileText,
               title: 'Get DOI (Crossref) for your abstract',
+              color: '#FF1F1F',
             },
             {
-              image: '/images/CPD.jpg',
+              icon: Zap,
               title: 'CPD Certificate',
+              color: '#FF6B6B',
             },
             {
-              image: '/images/speaker1.png',
-              title: 'Opportunity to Become a Keynote Speaker',
-            },
-            {
-              image: '/images/speaker2.png',
-              title: 'Free Access to 170+ Millions of Metadata Records',
-            },
-            {
-              image: '/images/google scholor.png',
+              icon: Database,
               title: 'Abstract Indexed in Google Scholar & 10+ Indexing Directories',
+              color: '#FF1F1F',
             },
           ].map((benefit, i) => {
+            const Icon = benefit.icon;
             return (
               <motion.div
                 key={benefit.title}
@@ -131,14 +124,9 @@ export default function Countdown() {
                   {/* Top accent line */}
                   <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#FF1F1F] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   
-                  {/* Image */}
-                  <div className="mb-4 flex items-center justify-center h-20 w-20 group-hover:scale-110 transition-transform duration-300">
-                    <img
-                      src={benefit.image}
-                      alt={benefit.title}
-                      className="w-full h-full object-contain"
-                      loading="lazy"
-                    />
+                  {/* Icon */}
+                  <div className="mb-4 p-3 rounded-lg bg-gradient-to-br from-[#FF1F1F]/20 to-[#FF1F1F]/5 border border-[#FF1F1F]/30 group-hover:border-[#FF1F1F]/60 group-hover:shadow-[0_0_20px_rgba(255,31,31,0.3)] transition-all duration-300">
+                    <Icon size={28} style={{ color: benefit.color }} className="transition-transform group-hover:scale-110 duration-300" />
                   </div>
                   
                   {/* Benefit Title */}
