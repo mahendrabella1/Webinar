@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Award, FileText, Zap, Mic, Globe, Database } from 'lucide-react';
 import { useRegistration } from '../context/RegistrationContext';
 import { CTA_BUTTONS } from './RegistrationCTA';
 
@@ -93,37 +92,30 @@ export default function Countdown() {
         <div className="mb-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
             {
-              icon: Award,
+              image: '/images/CPD.jpg',
               title: 'Certificate of Participation / Presentation',
-              color: '#FF1F1F',
             },
             {
-              icon: FileText,
+              image: '/images/DOI.png',
               title: 'Get DOI (Crossref) for your abstract',
-              color: '#FF6B6B',
             },
             {
-              icon: Zap,
+              image: '/images/CPD.jpg',
               title: 'CPD Certificate',
-              color: '#FF1F1F',
             },
             {
-              icon: Mic,
+              image: '/images/speaker1.png',
               title: 'Opportunity to Become a Keynote Speaker',
-              color: '#FF6B6B',
             },
             {
-              icon: Globe,
+              image: '/images/speaker2.png',
               title: 'Free Access to 170+ Millions of Metadata Records',
-              color: '#FF1F1F',
             },
             {
-              icon: Database,
+              image: '/images/google scholor.png',
               title: 'Abstract Indexed in Google Scholar & 10+ Indexing Directories',
-              color: '#FF6B6B',
             },
           ].map((benefit, i) => {
-            const Icon = benefit.icon;
             return (
               <motion.div
                 key={benefit.title}
@@ -137,13 +129,16 @@ export default function Countdown() {
                 
                 <div className="relative bg-gradient-to-br from-[#0D0D0D]/95 to-[#0D0D0D]/80 backdrop-blur-sm border border-white/[0.12] rounded-xl p-6 hover:border-[#FF1F1F]/60 transition-all duration-300 group-hover:shadow-[0_8px_32px_rgba(255,31,31,0.15)] h-full flex flex-col items-center text-center">
                   {/* Top accent line */}
-                  <div
-                    className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#FF1F1F] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  />
+                  <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#FF1F1F] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   
-                  {/* Icon */}
-                  <div className="mb-4 p-3 rounded-lg bg-gradient-to-br from-[#FF1F1F]/20 to-[#FF1F1F]/5 border border-[#FF1F1F]/30 group-hover:border-[#FF1F1F]/60 group-hover:shadow-[0_0_20px_rgba(255,31,31,0.3)] transition-all duration-300">
-                    <Icon size={28} style={{ color: benefit.color }} className="transition-transform group-hover:scale-110 duration-300" />
+                  {/* Image */}
+                  <div className="mb-4 flex items-center justify-center h-20 w-20 group-hover:scale-110 transition-transform duration-300">
+                    <img
+                      src={benefit.image}
+                      alt={benefit.title}
+                      className="w-full h-full object-contain"
+                      loading="lazy"
+                    />
                   </div>
                   
                   {/* Benefit Title */}
