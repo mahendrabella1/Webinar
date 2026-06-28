@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FileText, Zap, Database } from 'lucide-react';
+import { Award, FileText, Zap, Mic, Globe, Database } from 'lucide-react';
 import { useRegistration } from '../context/RegistrationContext';
 import { CTA_BUTTONS } from './RegistrationCTA';
 
@@ -85,30 +85,47 @@ export default function Countdown() {
             When You Attend Conferences
           </p>
           <h3 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
-            You'll Get These <span className="text-[#FF1F1F]">3 Key Benefits</span>
+            You'll Get These <span className="text-[#FF1F1F]">6 Powerful Benefits</span>
           </h3>
         </motion.div>
 
         {/* Benefits Grid */}
-        <div className="mb-16 grid sm:grid-cols-3 gap-4">
+        <div className="mb-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
             {
-              icon: FileText,
-              title: 'Get DOI (Crossref) for your abstract',
+              type: 'icon',
+              icon: Award,
+              title: 'Certificate of Participation / Presentation',
               color: '#FF1F1F',
             },
             {
-              icon: Zap,
+              type: 'image',
+              image: '/images/DOI.png',
+              title: 'Get DOI (Crossref) for your abstract',
+            },
+            {
+              type: 'image',
+              image: '/images/CPD.jpg',
               title: 'CPD Certificate',
+            },
+            {
+              type: 'icon',
+              icon: Mic,
+              title: 'Opportunity to Become a Keynote Speaker',
               color: '#FF6B6B',
             },
             {
-              icon: Database,
-              title: 'Abstract Indexed in Google Scholar & 10+ Indexing Directories',
+              type: 'icon',
+              icon: Globe,
+              title: 'Free Access to 170+ Millions of Metadata Records',
               color: '#FF1F1F',
             },
+            {
+              type: 'image',
+              image: '/images/google%20scholor.png',
+              title: 'Abstract Indexed in Google Scholar & 10+ Indexing Directories',
+            },
           ].map((benefit, i) => {
-            const Icon = benefit.icon;
             return (
               <motion.div
                 key={benefit.title}
@@ -119,21 +136,32 @@ export default function Countdown() {
                 className="group relative"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-[#FF1F1F]/20 to-[#FF6B6B]/10 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                
+
                 <div className="relative bg-gradient-to-br from-[#0D0D0D]/95 to-[#0D0D0D]/80 backdrop-blur-sm border border-white/[0.12] rounded-xl p-6 hover:border-[#FF1F1F]/60 transition-all duration-300 group-hover:shadow-[0_8px_32px_rgba(255,31,31,0.15)] h-full flex flex-col items-center text-center">
                   {/* Top accent line */}
                   <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#FF1F1F] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  
-                  {/* Icon */}
-                  <div className="mb-4 p-3 rounded-lg bg-gradient-to-br from-[#FF1F1F]/20 to-[#FF1F1F]/5 border border-[#FF1F1F]/30 group-hover:border-[#FF1F1F]/60 group-hover:shadow-[0_0_20px_rgba(255,31,31,0.3)] transition-all duration-300">
-                    <Icon size={28} style={{ color: benefit.color }} className="transition-transform group-hover:scale-110 duration-300" />
-                  </div>
-                  
+
+                  {/* Icon or Image */}
+                  {benefit.type === 'icon' ? (
+                    <div className="mb-4 p-3 rounded-lg bg-gradient-to-br from-[#FF1F1F]/20 to-[#FF1F1F]/5 border border-[#FF1F1F]/30 group-hover:border-[#FF1F1F]/60 group-hover:shadow-[0_0_20px_rgba(255,31,31,0.3)] transition-all duration-300">
+                      <benefit.icon size={28} style={{ color: benefit.color }} className="transition-transform group-hover:scale-110 duration-300" />
+                    </div>
+                  ) : (
+                    <div className="mb-4 h-20 w-20 flex items-center justify-center rounded-full bg-white/5 overflow-hidden shadow-lg transition-transform duration-300 group-hover:scale-105">
+                      <img
+                        src={benefit.image}
+                        alt={benefit.title}
+                        className="max-h-full max-w-full object-contain"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+
                   {/* Benefit Title */}
                   <p className="text-white/90 text-sm font-bold leading-snug group-hover:text-white transition-colors duration-300">
                     {benefit.title}
                   </p>
-                  
+
                   {/* Bottom accent */}
                   <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-12 h-0.5 bg-gradient-to-r from-transparent via-[#FF1F1F]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
