@@ -60,12 +60,6 @@ export default function OneGraspConferences() {
                   alt="OneGrasp Logo"
                   className="h-12 w-auto"
                 />
-                <div>
-                  <h3 className="text-white font-black text-2xl">
-                    One<span className="text-[#FF1F1F]">Grasp</span>
-                  </h3>
-                  <p className="text-white/40 text-xs uppercase tracking-widest">International Scientific Conferences</p>
-                </div>
               </div>
 
               <p className="text-[#A0A0A0] text-sm leading-relaxed">
