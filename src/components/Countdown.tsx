@@ -60,6 +60,8 @@ export default function Countdown() {
       <div className="absolute inset-0 pointer-events-none">
         <img
           src="https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?auto=compress&cs=tinysrgb&w=1600"
+          srcSet="https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?auto=compress&cs=tinysrgb&w=640 640w, https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?auto=compress&cs=tinysrgb&w=1280 1280w, https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?auto=compress&cs=tinysrgb&w=1600 1600w"
+          sizes="100vw"
           alt=""
           aria-hidden="true"
           width={1600}
@@ -104,12 +106,12 @@ export default function Countdown() {
             },
             {
               type: 'image',
-              image: '/images/DOI.png',
+              image: '/images/DOI.webp',
               title: 'Get DOI (Crossref) for your abstract',
             },
             {
               type: 'image',
-              image: '/images/CPD.jpg',
+              image: '/images/CPD.webp',
               title: 'CPD Certificate',
             },
             {
@@ -126,7 +128,7 @@ export default function Countdown() {
             },
             {
               type: 'image',
-              image: '/images/google%20scholor.png',
+              image: '/images/google%20scholor.webp',
               title: 'Abstract Indexed in Google Scholar & 10+ Indexing Directories',
             },
           ].map((benefit, i) => {

@@ -51,6 +51,8 @@ export default function Highlights() {
       <div className="absolute inset-0 pointer-events-none">
         <img
           src="https://images.pexels.com/photos/256395/pexels-photo-256395.jpeg?auto=compress&cs=tinysrgb&w=1920"
+          srcSet="https://images.pexels.com/photos/256395/pexels-photo-256395.jpeg?auto=compress&cs=tinysrgb&w=640 640w, https://images.pexels.com/photos/256395/pexels-photo-256395.jpeg?auto=compress&cs=tinysrgb&w=1280 1280w, https://images.pexels.com/photos/256395/pexels-photo-256395.jpeg?auto=compress&cs=tinysrgb&w=1920 1920w"
+          sizes="100vw"
           alt=""
           aria-hidden="true"
           width={1920}
@@ -126,6 +128,8 @@ export default function Highlights() {
         >
           <img
             src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1600"
+            srcSet="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=640 640w, https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1280 1280w, https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1600 1600w"
+            sizes="100vw"
             alt="Professionals learning together globally"
             width={1600}
             height={1067}
