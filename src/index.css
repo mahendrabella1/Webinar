@@ -1,4 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+/* Inter font is loaded via <link> in index.html (non-blocking).
+   @import was removed because it creates a render-blocking chain:
+   HTML → CSS → @import → font file (3 sequential fetches).
+   Using <link rel="stylesheet"> in <head> allows parallel fetching. */
 
 @tailwind base;
 @tailwind components;

@@ -3,8 +3,15 @@ import { Calendar, Clock, Users, ArrowRight } from 'lucide-react';
 import { useRegistration } from '../context/RegistrationContext';
 import { initiatePayment } from '../utils/payment';
 
-const POSTER_WEBP = '/images/hero%20poster.webp';
-const POSTER_PNG  = '/images/hero%20poster.png';
+// Responsive WebP variants — browser picks the right size automatically
+const POSTER_SRCSET = [
+  '/images/hero%20poster-480w.webp 480w',
+  '/images/hero%20poster-768w.webp 768w',
+  '/images/hero%20poster-1040w.webp 1040w',
+].join(', ');
+const POSTER_SIZES  = '(max-width: 640px) 480px, (max-width: 1024px) 768px, 1040px';
+const POSTER_PNG    = '/images/hero%20poster.png'; // fallback for no-WebP browsers
+
 
 export default function Hero() {
   const { openForm } = useRegistration();
@@ -163,7 +170,13 @@ export default function Hero() {
               style={{ aspectRatio: '4 / 5' }}
             >
               <picture>
-                <source srcSet={POSTER_WEBP} type="image/webp" />
+                {/* Responsive WebP — browser picks smallest that fits */}
+                <source
+                  srcSet={POSTER_SRCSET}
+                  sizes={POSTER_SIZES}
+                  type="image/webp"
+                />
+                {/* PNG fallback for legacy browsers */}
                 <img
                   src={POSTER_PNG}
                   alt="Webinar flyer — OneGrasp International Scientific Conferences Webinar, 23 July 2026"

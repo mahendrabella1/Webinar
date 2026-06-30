@@ -157,6 +157,9 @@ export default function Countdown() {
                         alt={benefit.title}
                         className="max-h-full max-w-full object-contain"
                         loading="lazy"
+                        width={80}
+                        height={80}
+                        decoding="async"
                       />
                     </div>
                   )}
