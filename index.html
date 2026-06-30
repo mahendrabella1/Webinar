@@ -2,16 +2,51 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="https://onegrasp.com/wp-content/uploads/2026/05/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title data-default>OneGrasp Webinar</title>
-    <meta property="og:image" content="https://bolt.new/static/og_default.png" />
+
+    <!-- Primary Meta Tags -->
+    <title>OneGrasp Webinar — International Scientific Conferences: Importance & Awareness</title>
+    <meta name="title" content="OneGrasp Webinar — International Scientific Conferences" />
+    <meta name="description" content="Join our 2-hour online webinar on 23 July 2026 to learn everything about international scientific conferences, DOI submission, CPD credits, keynote speaking, and research visibility. Only ₹299." />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://onegrasp.com/wp-content/uploads/2026/05/logo.png" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="OneGrasp Webinar — International Scientific Conferences" />
+    <meta property="og:description" content="2-hour online webinar | 23 July 2026 | ₹299 | Learn about DOI, CPD credits, conference publishing & more." />
+    <meta property="og:image" content="https://onegrasp.com/wp-content/uploads/2026/05/logo.png" />
+
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="https://bolt.new/static/og_default.png" />
+    <meta name="twitter:title" content="OneGrasp Webinar — International Scientific Conferences" />
+    <meta name="twitter:description" content="2-hour online webinar | 23 July 2026 | ₹299 | Learn about DOI, CPD credits, conference publishing & more." />
+    <meta name="twitter:image" content="https://onegrasp.com/wp-content/uploads/2026/05/logo.png" />
+
+    <!-- DNS Prefetch & Preconnect for third-party origins -->
+    <link rel="preconnect" href="https://checkout.razorpay.com" crossorigin />
+    <link rel="dns-prefetch" href="https://checkout.razorpay.com" />
+    <link rel="preconnect" href="https://images.pexels.com" crossorigin />
+    <link rel="dns-prefetch" href="https://images.pexels.com" />
+    <link rel="preconnect" href="https://onegrasp.com" crossorigin />
+    <link rel="dns-prefetch" href="https://onegrasp.com" />
+
+    <!-- Preload LCP image (hero poster — above the fold) -->
+    <link
+      rel="preload"
+      as="image"
+      href="/images/hero%20poster.webp"
+      type="image/webp"
+      fetchpriority="high"
+    />
   </head>
   <body>
     <div id="root"></div>
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <!-- Razorpay checkout — deferred so it doesn't block HTML parsing -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js" defer></script>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

@@ -3,7 +3,8 @@ import { Calendar, Clock, Users, ArrowRight } from 'lucide-react';
 import { useRegistration } from '../context/RegistrationContext';
 import { initiatePayment } from '../utils/payment';
 
-const POSTER = '/images/hero%20poster.png';
+const POSTER_WEBP = '/images/hero%20poster.webp';
+const POSTER_PNG  = '/images/hero%20poster.png';
 
 export default function Hero() {
   const { openForm } = useRegistration();
@@ -158,12 +159,17 @@ export default function Hero() {
               className="group relative w-full max-w-[520px] text-left"
               style={{ aspectRatio: '4 / 5' }}
             >
-              <img
-                src={POSTER}
-                alt="Webinar flyer"
-                className="w-full h-full object-contain object-center transition-transform duration-700 group-hover:scale-105"
-                loading="lazy"
-              />
+              <picture>
+                <source srcSet={POSTER_WEBP} type="image/webp" />
+                <img
+                  src={POSTER_PNG}
+                  alt="Webinar flyer — OneGrasp International Scientific Conferences Webinar, 23 July 2026"
+                  className="w-full h-full object-contain object-center transition-transform duration-700 group-hover:scale-105"
+                  width={520}
+                  height={650}
+                  fetchPriority="high"
+                />
+              </picture>
             </motion.button>
           </motion.div>
         </div>

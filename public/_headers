@@ -1,0 +1,29 @@
+# Netlify / Cloudflare Pages — Cache-Control headers
+
+# Hashed JS/CSS/font assets — immutable for 1 year
+/assets/js/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/css/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Images — cache for 30 days (not hashed, so shorter TTL)
+/images/*
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+
+# HTML — always revalidate (enables stale-while-revalidate for CDN)
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Enable Brotli & Gzip if served from Netlify
+/assets/*
+  Content-Encoding: br

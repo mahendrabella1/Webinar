@@ -4,6 +4,7 @@ import { CTA_BUTTONS } from './RegistrationCTA';
 
 const speakers = [
   {
+    photoWebp: '/images/Speaker1.webp',
     photo: '/images/Speaker1.png',
     fit: 'object-contain',
     name: 'Dr. Rudrarup Gupta',
@@ -14,6 +15,7 @@ const speakers = [
     topic: 'Interdisciplinary Research',
   },
   {
+    photoWebp: '/images/speaker2.webp',
     photo: '/images/speaker2.png',
     name: 'Dr. G N Manjunath',
     domain: 'Professor of Pharmacology',
@@ -23,6 +25,7 @@ const speakers = [
     topic: 'Medical Research & Conferences',
   },
   {
+    photoWebp: '/images/speaker3.webp',
     photo: '/images/speaker3.png',
     fit: 'object-contain',
     name: 'Dr. D K Chaturvedi',
@@ -33,6 +36,7 @@ const speakers = [
     topic: 'Academic Publishing & Conferences',
   },
   {
+    photoWebp: '/images/speaker4.webp',
     photo: '/images/speaker4.png',
     fit: 'object-contain',
     name: 'Dr. Bishnu Pada Bose',
@@ -105,12 +109,18 @@ export default function Speakers() {
                 <div className={`grid gap-4 lg:grid-cols-[1.1fr_0.9fr] ${reversed ? 'lg:grid-cols-[0.9fr_1.1fr] text-right' : ''}`}>
                   <div className={`flex items-center justify-center p-6 sm:p-8 ${reversed ? 'lg:order-2' : ''}`}>
                     <div className="relative w-56 h-56 sm:w-64 sm:h-64 lg:w-72 lg:h-72 rounded-full overflow-hidden bg-[#111] shadow-inner">
-                      <img
-                        src={s.photo}
-                        alt={s.name}
-                        className={`w-full h-full ${s.fit || 'object-cover'} object-center bg-[#111] transition-transform duration-700 group-hover:scale-105`}
-                        loading="lazy"
-                      />
+                      <picture>
+                        <source srcSet={s.photoWebp} type="image/webp" />
+                        <img
+                          src={s.photo}
+                          alt={s.name}
+                          className={`w-full h-full ${s.fit || 'object-cover'} object-center bg-[#111] transition-transform duration-700 group-hover:scale-105`}
+                          loading="lazy"
+                          width={288}
+                          height={288}
+                          decoding="async"
+                        />
+                      </picture>
                       <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0D]/20 via-transparent to-transparent" />
                     </div>
                   </div>

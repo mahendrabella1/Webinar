@@ -21,3 +21,6 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# Original image backups (kept locally only — WebP versions are committed instead)
+*.bak
