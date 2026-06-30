@@ -62,6 +62,10 @@ export default function Countdown() {
           src="https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?auto=compress&cs=tinysrgb&w=1600"
           alt=""
           aria-hidden="true"
+          width={1600}
+          height={1067}
+          loading="lazy"
+          fetchPriority="low"
           className="w-full h-full object-cover object-center opacity-15"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-transparent to-[#050505]" />

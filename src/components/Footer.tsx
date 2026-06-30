@@ -13,6 +13,9 @@ export default function Footer() {
               <img 
                 src="https://onegrasp.com/wp-content/uploads/2026/05/logo.png" 
                 alt="OneGrasp Logo"
+                width={160}
+                height={40}
+                loading="lazy"
                 className="h-10 w-auto"
               />
             </div>

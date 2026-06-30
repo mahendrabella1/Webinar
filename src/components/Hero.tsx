@@ -9,7 +9,7 @@ const POSTER_PNG  = '/images/hero%20poster.png';
 export default function Hero() {
   const { openForm } = useRegistration();
   return (
-    <section
+    <main
       id="about"
       className="relative min-h-screen flex items-center bg-[#050505] overflow-hidden pt-20"
     >
@@ -19,6 +19,11 @@ export default function Hero() {
           src="https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=1920"
           alt=""
           aria-hidden="true"
+          role="presentation"
+          width={1920}
+          height={1080}
+          loading="lazy"
+          fetchPriority="low"
           className="w-full h-full object-cover object-center opacity-[0.12]"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/60 to-[#050505]/40" />
@@ -51,14 +56,12 @@ export default function Hero() {
               className="space-y-2"
             >
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black uppercase leading-[1.05] tracking-tight text-white">
-                International Scientific
+                International Scientific{' '}
+                <span className="text-[#FF1F1F]">Conferences</span>
               </h1>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black uppercase leading-[1.05] tracking-tight text-[#FF1F1F]">
-                Conferences
-              </h1>
-              <p className="text-lg sm:text-xl text-white/50 font-bold uppercase tracking-widest mt-2">
+              <h2 className="text-lg sm:text-xl text-white/50 font-bold uppercase tracking-widest mt-2">
                 Importance & Awareness Webinar
-              </p>
+              </h2>
             </motion.div>
 
             {/* Meta info */}
@@ -185,6 +188,6 @@ export default function Hero() {
         <span className="text-white/20 text-[10px] uppercase tracking-widest">Scroll</span>
         <div className="w-px h-6 bg-gradient-to-b from-white/20 to-transparent" />
       </motion.div>
-    </section>
+    </main>
   );
 }

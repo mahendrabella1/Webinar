@@ -38,6 +38,8 @@ export default function Navbar() {
           <img 
             src="https://onegrasp.com/wp-content/uploads/2026/05/logo.png" 
             alt="OneGrasp Logo"
+            width={160}
+            height={40}
             className="h-8 md:h-10 w-auto"
           />
         </a>

@@ -53,6 +53,10 @@ export default function Highlights() {
           src="https://images.pexels.com/photos/256395/pexels-photo-256395.jpeg?auto=compress&cs=tinysrgb&w=1920"
           alt=""
           aria-hidden="true"
+          width={1920}
+          height={1080}
+          loading="lazy"
+          fetchPriority="low"
           className="w-full h-full object-cover object-center opacity-30"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-[#050505]/60 to-[#050505]" />
@@ -123,6 +127,9 @@ export default function Highlights() {
           <img
             src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1600"
             alt="Professionals learning together globally"
+            width={1600}
+            height={1067}
+            loading="lazy"
             className="w-full h-full object-cover object-center"
             style={{ opacity: 0.55 }}
           />
