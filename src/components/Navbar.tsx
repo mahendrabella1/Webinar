@@ -1,25 +1,26 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useRegistration } from '../context/RegistrationContext';
 
+// Only 3 nav links — fewer distractions = higher conversion
 const navLinks = [
   { label: 'Webinar', href: '#about' },
-  { label: "What You'll Learn", href: '#benefits' },
   { label: 'Speakers', href: '#speakers' },
-  { label: 'Agenda', href: '#agenda' },
-  { label: 'Topics', href: '#research' },
   { label: 'FAQ', href: '#faq' },
 ];
+
+function scrollToForm() {
+  const el = document.getElementById('enquiry-form');
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const { openForm } = useRegistration();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener('scroll', onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
@@ -27,24 +28,26 @@ export default function Navbar() {
     <motion.nav
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-[#050505]/95 backdrop-blur-md border-b border-white/10 shadow-2xl' : 'bg-transparent'
+        scrolled
+          ? 'bg-[#050505]/95 backdrop-blur-md border-b border-white/10 shadow-2xl'
+          : 'bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between h-16 md:h-20">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 flex items-center justify-between h-16 md:h-18">
         {/* Logo */}
-        <a href="#" className="flex items-center gap-2 group">
-          <img 
-            src="https://onegrasp.com/wp-content/uploads/2026/05/logo.png" 
+        <a href="#" className="flex items-center gap-2 flex-shrink-0">
+          <img
+            src="https://onegrasp.com/wp-content/uploads/2026/05/logo.png"
             alt="OneGrasp Logo"
             width={160}
             height={40}
-            className="h-8 md:h-10 w-auto"
+            className="h-8 md:h-9 w-auto"
           />
         </a>
 
-        {/* Desktop links */}
+        {/* Desktop links — minimal, 3 only */}
         <ul className="hidden md:flex items-center gap-8">
           {navLinks.map((l) => (
             <li key={l.href}>
@@ -59,10 +62,11 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* CTA */}
+        {/* Desktop CTA — scrolls to the above-fold enquiry form */}
         <button
-          onClick={() => openForm('Navbar Register')}
-          className="hidden md:inline-flex items-center gap-2 bg-[#FF1F1F] hover:bg-[#C70000] text-white text-sm font-semibold px-5 py-2.5 rounded-sm transition-all duration-200 shadow-lg shadow-red-900/30 hover:shadow-red-900/50"
+          id="navbar-cta"
+          onClick={scrollToForm}
+          className="hidden md:inline-flex items-center gap-2 bg-[#FF1F1F] hover:bg-[#C70000] text-white text-sm font-bold px-5 py-2.5 rounded-sm transition-all duration-200 shadow-lg shadow-red-900/30 hover:shadow-red-900/50"
         >
           Register Now
         </button>
@@ -71,7 +75,7 @@ export default function Navbar() {
         <button
           className="md:hidden text-white p-2"
           onClick={() => setOpen((v) => !v)}
-          aria-label="Toggle menu"
+          aria-label={open ? 'Close menu' : 'Open menu'}
         >
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>
@@ -84,8 +88,8 @@ export default function Navbar() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="md:hidden overflow-hidden bg-[#0D0D0D] border-t border-white/10"
+            transition={{ duration: 0.22 }}
+            className="md:hidden overflow-hidden bg-[#0A0A0A] border-t border-white/10"
           >
             <div className="px-6 py-4 flex flex-col gap-4">
               {navLinks.map((l) => (
@@ -100,10 +104,10 @@ export default function Navbar() {
               ))}
               <button
                 onClick={() => {
-                  openForm('Mobile Menu - Register Now');
+                  scrollToForm();
                   setOpen(false);
                 }}
-                className="bg-[#FF1F1F] hover:bg-[#C70000] text-white text-sm font-semibold px-5 py-2.5 rounded-sm text-center mt-2 transition-colors cursor-pointer"
+                className="bg-[#FF1F1F] hover:bg-[#C70000] text-white text-sm font-bold px-5 py-3 rounded-sm text-center mt-2 transition-colors"
               >
                 Register Now
               </button>

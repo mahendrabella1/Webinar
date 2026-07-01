@@ -1,195 +1,466 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, Clock, Users, ArrowRight } from 'lucide-react';
-import { useRegistration } from '../context/RegistrationContext';
+import {
+  Calendar,
+  Clock,
+  Users,
+  CheckCircle2,
+  Loader2,
+  ArrowRight,
+  Award,
+  FileText,
+  Globe,
+  AlertCircle,
+} from 'lucide-react';
 import { initiatePayment } from '../utils/payment';
 
-// Responsive WebP variants — browser picks the right size automatically
-const POSTER_SRCSET = [
-  '/images/hero%20poster-480w.webp 480w',
-  '/images/hero%20poster-768w.webp 768w',
-  '/images/hero%20poster-1040w.webp 1040w',
-].join(', ');
-const POSTER_SIZES  = '(max-width: 640px) 480px, (max-width: 1024px) 768px, 1040px';
-const POSTER_PNG    = '/images/hero%20poster.png'; // fallback for no-WebP browsers
+// ─── Enquiry form ─────────────────────────────────────────────────────────────
+type FormData = {
+  name: string;
+  email: string;
+  mobile: string;
+  institution: string;
+  message: string;
+};
 
+type FormErrors = Partial<Record<keyof FormData, string>>;
 
+const BENEFIT_BULLETS = [
+  { Icon: FileText, text: 'Get a Crossref DOI for your research abstract' },
+  { Icon: Award, text: 'Earn CPD-accredited Certificate of Participation' },
+  { Icon: Globe, text: 'Abstract indexed in Google Scholar & 10+ directories' },
+  { Icon: CheckCircle2, text: 'Discover how to become a Keynote Speaker' },
+  { Icon: Users, text: 'Network with 1000+ researchers across 20+ countries' },
+];
+
+function validateForm(data: FormData): FormErrors {
+  const errors: FormErrors = {};
+  if (!data.name.trim()) errors.name = 'Full name is required';
+  if (!data.email.trim()) {
+    errors.email = 'Email is required';
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+    errors.email = 'Enter a valid email address';
+  }
+  if (!data.mobile.trim()) {
+    errors.mobile = 'Phone number is required';
+  } else if (!/^\d{10}$/.test(data.mobile.replace(/[\s\-+()]/g, ''))) {
+    errors.mobile = 'Enter a valid 10-digit phone number';
+  }
+  if (!data.institution.trim()) errors.institution = 'Organization name is required';
+  return errors;
+}
+
+function FieldError({ msg }: { msg?: string }) {
+  if (!msg) return null;
+  return (
+    <p className="flex items-center gap-1 text-red-400 text-xs mt-1" role="alert">
+      <AlertCircle size={11} />
+      {msg}
+    </p>
+  );
+}
+
+function EnquiryForm() {
+  const [form, setForm] = useState<FormData>({
+    name: '',
+    email: '',
+    mobile: '',
+    institution: '',
+    message: '',
+  });
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [touched, setTouched] = useState<Partial<Record<keyof FormData, boolean>>>({});
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target as { name: keyof FormData; value: string };
+    setForm((prev) => ({ ...prev, [name]: value }));
+    if (touched[name as keyof FormData]) {
+      const newErrors = validateForm({ ...form, [name]: value });
+      setErrors((prev) => ({ ...prev, [name]: newErrors[name as keyof FormData] }));
+    }
+  };
+
+  const handleBlur = (
+    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const name = e.target.name as keyof FormData;
+    setTouched((prev) => ({ ...prev, [name]: true }));
+    const newErrors = validateForm(form);
+    setErrors((prev) => ({ ...prev, [name]: newErrors[name] }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const allTouched = Object.fromEntries(
+      (Object.keys(form) as (keyof FormData)[]).map((k) => [k, true])
+    );
+    setTouched(allTouched);
+    const newErrors = validateForm(form);
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) return;
+
+    setStatus('loading');
+
+    try {
+      // 1. Send lead to backend so we capture it even if payment is abandoned
+      await fetch('/api/send-registration', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...form,
+          ctaName: 'Hero Enquiry Form',
+          amount: '₹299',
+        }),
+      });
+
+      localStorage.setItem(
+        'enquiryData',
+        JSON.stringify({ ...form, timestamp: new Date().toISOString() })
+      );
+
+      // 2. Open Razorpay (loads script on-demand)
+      await initiatePayment('Hero Enquiry Form', { ...form }, {
+        onSuccess: () => {
+          setStatus('success');
+          setForm({ name: '', email: '', mobile: '', institution: '', message: '' });
+          setTouched({});
+          setErrors({});
+        },
+        onDismiss: () => {
+          // Lead is already captured — just let them stay on page
+          setStatus('idle');
+        },
+      });
+    } catch {
+      setStatus('error');
+    }
+  };
+
+  const inputClass = (field: keyof FormData) =>
+    `w-full bg-white/[0.06] border rounded-lg px-4 py-3 text-white text-sm placeholder-white/30 
+     focus:outline-none focus:ring-2 transition-all duration-200 ${
+       errors[field] && touched[field]
+         ? 'border-red-500/60 focus:ring-red-500/25'
+         : 'border-white/[0.12] focus:ring-[#FF1F1F]/30 focus:border-[#FF1F1F]/70'
+     }`;
+
+  if (status === 'success') {
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="flex flex-col items-center justify-center gap-5 py-12 text-center"
+      >
+        <div className="w-16 h-16 rounded-full bg-green-500/15 border border-green-500/30 flex items-center justify-center">
+          <CheckCircle2 size={32} className="text-green-400" />
+        </div>
+        <div>
+          <h3 className="text-white font-black text-xl mb-1">You're Registered! 🎉</h3>
+          <p className="text-[#A0A0A0] text-sm leading-relaxed">
+            Your seat is secured. Check your inbox for the webinar link 24 hours before the event.
+          </p>
+        </div>
+        <div className="flex flex-col items-center gap-1">
+          <p className="text-[#FF1F1F] font-bold text-sm">23 July 2026 · 06:00 – 08:00 PM IST</p>
+          <p className="text-white/40 text-xs">Online Webinar · OneGrasp</p>
+        </div>
+      </motion.div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} noValidate className="space-y-4" aria-label="Webinar Enquiry Form">
+      {/* Name + Email row */}
+      <div className="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label htmlFor="hero-name" className="block text-xs font-semibold text-white/70 mb-1.5 uppercase tracking-wider">
+            Full Name <span className="text-[#FF1F1F]">*</span>
+          </label>
+          <input
+            id="hero-name"
+            name="name"
+            type="text"
+            autoComplete="name"
+            value={form.name}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            placeholder="Your full name"
+            disabled={status === 'loading'}
+            className={inputClass('name')}
+          />
+          <FieldError msg={touched.name ? errors.name : undefined} />
+        </div>
+        <div>
+          <label htmlFor="hero-email" className="block text-xs font-semibold text-white/70 mb-1.5 uppercase tracking-wider">
+            Email <span className="text-[#FF1F1F]">*</span>
+          </label>
+          <input
+            id="hero-email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            value={form.email}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            placeholder="you@email.com"
+            disabled={status === 'loading'}
+            className={inputClass('email')}
+          />
+          <FieldError msg={touched.email ? errors.email : undefined} />
+        </div>
+      </div>
+
+      {/* Phone */}
+      <div>
+        <label htmlFor="hero-mobile" className="block text-xs font-semibold text-white/70 mb-1.5 uppercase tracking-wider">
+          Phone Number <span className="text-[#FF1F1F]">*</span>
+        </label>
+        <input
+          id="hero-mobile"
+          name="mobile"
+          type="tel"
+          inputMode="numeric"
+          autoComplete="tel"
+          maxLength={12}
+          value={form.mobile}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          placeholder="+91 98765 43210"
+          disabled={status === 'loading'}
+          className={inputClass('mobile')}
+        />
+        <FieldError msg={touched.mobile ? errors.mobile : undefined} />
+      </div>
+
+      {/* Organization */}
+      <div>
+        <label htmlFor="hero-institution" className="block text-xs font-semibold text-white/70 mb-1.5 uppercase tracking-wider">
+          Organization / University <span className="text-[#FF1F1F]">*</span>
+        </label>
+        <input
+          id="hero-institution"
+          name="institution"
+          type="text"
+          autoComplete="organization"
+          value={form.institution}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          placeholder="Your university or organization"
+          disabled={status === 'loading'}
+          className={inputClass('institution')}
+        />
+        <FieldError msg={touched.institution ? errors.institution : undefined} />
+      </div>
+
+      {/* Message */}
+      <div>
+        <label htmlFor="hero-message" className="block text-xs font-semibold text-white/70 mb-1.5 uppercase tracking-wider">
+          Message <span className="text-white/30 font-normal">(Optional)</span>
+        </label>
+        <textarea
+          id="hero-message"
+          name="message"
+          rows={3}
+          value={form.message}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          placeholder="Any questions or topics you'd like covered?"
+          disabled={status === 'loading'}
+          className={`${inputClass('message')} resize-none`}
+        />
+      </div>
+
+      {/* Error banner */}
+      {status === 'error' && (
+        <div className="rounded-lg bg-red-500/10 border border-red-500/30 px-4 py-3 text-red-400 text-sm" role="alert">
+          Something went wrong. Please try again or email us at support@onegrasp.com
+        </div>
+      )}
+
+      {/* CTA */}
+      <button
+        type="submit"
+        disabled={status === 'loading'}
+        className="w-full flex items-center justify-center gap-2 bg-[#FF1F1F] hover:bg-[#C70000] disabled:opacity-70 disabled:cursor-not-allowed text-white font-black text-base py-4 rounded-lg transition-all duration-200 shadow-xl shadow-red-900/40 hover:shadow-red-900/60 group"
+      >
+        {status === 'loading' ? (
+          <>
+            <Loader2 size={18} className="animate-spin" />
+            Processing…
+          </>
+        ) : (
+          <>
+            Secure My Seat — ₹299
+            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+          </>
+        )}
+      </button>
+
+      <p className="text-white/30 text-[11px] text-center leading-relaxed">
+        Your details are sent to support@onegrasp.com · Webinar link delivered via email
+      </p>
+    </form>
+  );
+}
+
+// ─── Hero Section ─────────────────────────────────────────────────────────────
 export default function Hero() {
-  const { openForm } = useRegistration();
   return (
     <main
       id="about"
-      className="relative min-h-screen flex items-center bg-[#050505] overflow-hidden pt-20"
+      className="relative min-h-screen flex items-center bg-[#050505] overflow-hidden pt-16 md:pt-20"
     >
-      {/* Background */}
-      <div className="absolute inset-0 pointer-events-none">
+      {/* Background image — low priority, decorative only */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <img
           src="https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=1920"
-          srcSet="https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=640 640w, https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=1280 1280w, https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=1920 1920w"
+          srcSet="https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=640 640w, https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=1280 1280w"
           sizes="100vw"
           alt=""
-          aria-hidden="true"
           role="presentation"
-          width={1920}
-          height={1080}
+          width={1280}
+          height={720}
           loading="lazy"
           fetchPriority="low"
-          className="w-full h-full object-cover object-center opacity-[0.12]"
+          decoding="async"
+          className="w-full h-full object-cover object-center opacity-[0.10]"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/60 to-[#050505]/40" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/90 via-transparent to-[#050505]" />
-      </div>
-      {/* Red accent */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-[40%] h-[50%] bg-[radial-gradient(ellipse_at_top_left,rgba(199,0,0,0.14),transparent_65%)]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/70 to-[#050505]/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/80 via-transparent to-[#050505]" />
+        <div className="absolute top-0 left-0 w-[45%] h-[55%] bg-[radial-gradient(ellipse_at_top_left,rgba(199,0,0,0.13),transparent_65%)]" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 w-full py-16 lg:py-0">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 items-center">
-          {/* Left: Webinar info */}
-          <div className="space-y-5">
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 w-full py-14 lg:py-20">
+        <div className="grid lg:grid-cols-[1fr_1fr] gap-10 lg:gap-16 items-center">
+
+          {/* ── LEFT: Copy ─────────────────────────────────────────────── */}
+          <div className="space-y-6">
+            {/* Pre-headline badge */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               className="flex flex-wrap items-center gap-3"
             >
-              <span className="text-white/40 text-xs font-medium">2 Hours · Online</span>
-              <span className="inline-flex items-center rounded-full bg-[#FF1F1F] px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-white shadow-lg shadow-red-900/30">
-                ₹299
+              <span className="inline-flex items-center rounded-full bg-[#FF1F1F] px-3 py-1 text-xs font-black uppercase tracking-widest text-white shadow-lg shadow-red-900/30">
+                ₹299 Only
               </span>
+              <span className="text-white/40 text-xs font-medium">2 Hours · Online · 23 July 2026</span>
             </motion.div>
+
+            {/* Headline */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.6, delay: 0.08 }}
               className="space-y-2"
             >
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black uppercase leading-[1.05] tracking-tight text-white">
+              <h1 className="text-4xl sm:text-5xl lg:text-[3.4rem] font-black uppercase leading-[1.05] tracking-tight text-white">
                 International Scientific{' '}
                 <span className="text-[#FF1F1F]">Conferences</span>
               </h1>
-              <h2 className="text-lg sm:text-xl text-white/50 font-bold uppercase tracking-widest mt-2">
-                Importance & Awareness Webinar
-              </h2>
+              <p className="text-lg sm:text-xl text-white/50 font-bold uppercase tracking-widest">
+                Importance &amp; Awareness Webinar
+              </p>
             </motion.div>
 
-            {/* Meta info */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="flex flex-wrap gap-3 pt-2"
-            >
-              <div className="flex items-center gap-2 bg-[#0D0D0D] border border-white/[0.12] rounded px-4 py-2">
-                <Calendar size={14} className="text-[#FF1F1F]" />
-                <span className="text-white text-sm font-medium">23 July 2026</span>
-              </div>
-              <div className="flex items-center gap-2 bg-[#0D0D0D] border border-white/[0.12] rounded px-4 py-2">
-                <Clock size={14} className="text-[#FF1F1F]" />
-                <span className="text-white text-sm font-medium">06:00 – 08:00 PM IST</span>
-              </div>
-              <div className="flex items-center gap-2 bg-[#0D0D0D] border border-white/[0.12] rounded px-4 py-2">
-                <Users size={14} className="text-[#FF1F1F]" />
-                <span className="text-white text-sm font-medium">1000+ Expected</span>
-              </div>
-            </motion.div>
-
-            {/* Description */}
+            {/* Supporting copy */}
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-[#A0A0A0] text-base leading-relaxed max-w-xl pt-1"
+              transition={{ duration: 0.6, delay: 0.16 }}
+              className="text-[#A0A0A0] text-base leading-relaxed max-w-lg"
             >
-              What actually happens at an international scientific conference? How do researchers
-              get a DOI? How do you become a keynote speaker? If you've ever asked these questions,
-              this 2-hour webinar costs ₹299.
+              Everything you need to know about DOI publications, indexed proceedings, and how to grow
+              your academic profile — in one live 2-hour session conducted by OneGrasp.
             </motion.p>
 
-            {/* What you'll learn */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
+            {/* Benefit bullets */}
+            <motion.ul
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.35 }}
-              className="space-y-2 pt-1"
+              transition={{ duration: 0.6, delay: 0.22 }}
+              className="space-y-2.5"
+              aria-label="Webinar benefits"
             >
-              <p className="text-white/60 text-xs uppercase tracking-widest font-semibold mb-2">You'll learn:</p>
+              {BENEFIT_BULLETS.map(({ Icon, text }, i) => (
+                <li key={i} className="flex items-center gap-3 text-sm text-white/80">
+                  <span className="w-7 h-7 rounded-lg bg-[#FF1F1F]/15 border border-[#FF1F1F]/30 flex items-center justify-center flex-shrink-0">
+                    <Icon size={13} className="text-[#FF1F1F]" />
+                  </span>
+                  {text}
+                </li>
+              ))}
+            </motion.ul>
+
+            {/* Event meta chips */}
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="flex flex-wrap gap-2 pt-1"
+            >
               {[
-                'What are scientific conferences & why they exist',
-                'How to submit research & get a Crossref DOI',
-                'Certificate of participation for attendees',
-                'CPD credits & academic indexing explained',
-                'Career & research visibility benefits',
-              ].map((item, i) => (
-                <div key={i} className="flex items-start gap-2 text-sm text-white/80">
-                  <span className="text-[#FF1F1F] mt-0.5 flex-shrink-0">›</span>
-                  {item}
+                { Icon: Calendar, label: '23 July 2026' },
+                { Icon: Clock,    label: '06:00 – 08:00 PM IST' },
+                { Icon: Users,    label: '1000+ Expected' },
+              ].map(({ Icon, label }) => (
+                <div
+                  key={label}
+                  className="flex items-center gap-2 bg-[#0D0D0D] border border-white/[0.1] rounded px-3 py-1.5"
+                >
+                  <Icon size={12} className="text-[#FF1F1F]" />
+                  <span className="text-white text-xs font-medium">{label}</span>
                 </div>
               ))}
             </motion.div>
 
-            {/* CTA */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="flex flex-wrap gap-4 pt-3"
+            {/* Conducted-by attribution */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              className="text-white/35 text-sm"
             >
-              <button
-                onClick={() => openForm('Secure My Seat')}
-                className="group inline-flex items-center gap-2 bg-[#FF1F1F] hover:bg-[#C70000] text-white font-bold text-base px-8 py-3.5 rounded-sm transition-all duration-200 shadow-lg shadow-red-900/40 hover:gap-3"
-              >
-                Secure My Seat
-                <ArrowRight size={16} />
-              </button>
-
-              <div className="flex items-center gap-3 pt-2">
-                <p className="text-white/40 text-sm">
-                  Conducted by{' '}
-                  <span className="text-white font-bold">
-                    One<span className="text-[#FF1F1F]">Grasp</span>
-                  </span>{' '}
-                  — International Scientific Conferences
-                </p>
-              </div>
-            </motion.div>
+              Conducted by{' '}
+              <span className="text-white/70 font-bold">
+                One<span className="text-[#FF1F1F]">Grasp</span>
+              </span>{' '}
+              — International Scientific Conferences
+            </motion.p>
           </div>
 
-          {/* Right: Single webinar poster - large, covering half width */}
+          {/* ── RIGHT: Enquiry Form ─────────────────────────────────────── */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
+            initial={{ opacity: 0, x: 32 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative flex justify-end lg:justify-center"
+            transition={{ duration: 0.7, delay: 0.12 }}
           >
-            <motion.button
-              type="button"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              onClick={() => initiatePayment('Hero Poster')}
-              className="group relative w-full max-w-[520px] text-left"
-              style={{ aspectRatio: '4 / 5' }}
+            <div
+              id="enquiry-form"
+              className="bg-[#0D0D0D]/90 backdrop-blur-sm border border-white/[0.1] rounded-2xl p-6 sm:p-8 shadow-2xl shadow-black/60"
+              style={{ scrollMarginTop: '5rem' }}
             >
-              <picture>
-                {/* Responsive WebP — browser picks smallest that fits */}
-                <source
-                  srcSet={POSTER_SRCSET}
-                  sizes={POSTER_SIZES}
-                  type="image/webp"
-                />
-                {/* PNG fallback for legacy browsers */}
-                <img
-                  src={POSTER_PNG}
-                  alt="Webinar flyer — OneGrasp International Scientific Conferences Webinar, 23 July 2026"
-                  className="w-full h-full object-contain object-center transition-transform duration-700 group-hover:scale-105"
-                  width={520}
-                  height={650}
-                  fetchPriority="high"
-                />
-              </picture>
-            </motion.button>
+              {/* Form header */}
+              <div className="mb-6">
+                <p className="text-[#FF1F1F] text-xs font-black uppercase tracking-[0.25em] mb-1">
+                  Register Now
+                </p>
+                <h2 className="text-white font-black text-xl leading-tight">
+                  Secure Your Seat
+                </h2>
+                <p className="text-[#A0A0A0] text-sm mt-1">
+                  Fill in your details below and pay ₹299 to confirm your spot.
+                </p>
+              </div>
+
+              <EnquiryForm />
+            </div>
           </motion.div>
+
         </div>
       </div>
 
@@ -197,11 +468,12 @@ export default function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5"
+        transition={{ delay: 2.5, duration: 1 }}
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5"
+        aria-hidden="true"
       >
         <span className="text-white/20 text-[10px] uppercase tracking-widest">Scroll</span>
-        <div className="w-px h-6 bg-gradient-to-b from-white/20 to-transparent" />
+        <div className="w-px h-5 bg-gradient-to-b from-white/20 to-transparent" />
       </motion.div>
     </main>
   );

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Award, FileText, Zap, Mic, Globe, Database } from 'lucide-react';
+import { Award, Mic, Globe } from 'lucide-react';
 import { useRegistration } from '../context/RegistrationContext';
 import { CTA_BUTTONS } from './RegistrationCTA';
 
@@ -150,7 +150,7 @@ export default function Countdown() {
                   {/* Icon or Image */}
                   {benefit.type === 'icon' ? (
                     <div className="mb-4 p-3 rounded-lg bg-gradient-to-br from-[#FF1F1F]/20 to-[#FF1F1F]/5 border border-[#FF1F1F]/30 group-hover:border-[#FF1F1F]/60 group-hover:shadow-[0_0_20px_rgba(255,31,31,0.3)] transition-all duration-300">
-                      <benefit.icon size={28} style={{ color: benefit.color }} className="transition-transform group-hover:scale-110 duration-300" />
+                      {(() => { const BenefitIcon = benefit.icon as React.ElementType; return <BenefitIcon size={28} style={{ color: benefit.color }} className="transition-transform group-hover:scale-110 duration-300" />; })()}
                     </div>
                   ) : (
                     <div className="mb-4 h-20 w-20 flex items-center justify-center rounded-full bg-white/5 overflow-hidden shadow-lg transition-transform duration-300 group-hover:scale-105">

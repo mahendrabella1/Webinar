@@ -46,3 +46,23 @@
     background: #C70000;
   }
 }
+
+/* ── Marquee animation for partner logos in Trust section ─────────────────── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* ── Smooth scroll margin for anchor targets (accounts for sticky header) ─── */
+[id] {
+  scroll-margin-top: 5rem;
+}
+

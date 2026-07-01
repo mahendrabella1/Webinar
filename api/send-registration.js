@@ -16,19 +16,20 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { name, mobile, email, institution, pincode, ctaName, amount } = req.body || {};
+    const { name, mobile, email, institution, pincode, message, ctaName, amount } = req.body || {};
 
     const mailOptions = {
       from: 'support@onegrasp.com',
       to: 'support@onegrasp.com',
-      subject: `New Webinar Registration - ${ctaName || 'CTA'}`,
+      subject: `New Webinar Enquiry / Registration - ${ctaName || 'CTA'}`,
       html: `
-        <h2>New webinar registration</h2>
+        <h2>New webinar enquiry / registration</h2>
         <p><strong>Name:</strong> ${name || '-'}</p>
         <p><strong>Email:</strong> ${email || '-'}</p>
         <p><strong>Phone:</strong> ${mobile || '-'}</p>
         <p><strong>Institution:</strong> ${institution || '-'}</p>
-        <p><strong>Pincode:</strong> ${pincode || '-'}</p>
+        ${pincode ? `<p><strong>Pincode:</strong> ${pincode}</p>` : ''}
+        ${message ? `<p><strong>Message:</strong> ${message}</p>` : ''}
         <p><strong>Amount:</strong> ${amount || '₹299'}</p>
         <p><strong>CTA:</strong> ${ctaName || '-'}</p>
       `,

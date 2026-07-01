@@ -15,7 +15,8 @@ export interface PaymentDetails {
   mobile: string;
   email: string;
   institution: string;
-  pincode: string;
+  message?: string;
+  pincode?: string; // kept for backward-compat
 }
 
 declare global {
@@ -24,7 +25,32 @@ declare global {
   }
 }
 
-export const initiatePayment = (
+// ─── On-demand Razorpay loader ───────────────────────────────────────────────
+// The checkout.js script is NOT loaded in index.html.
+// We load it dynamically here the first time payment is needed.
+// This saves ~60 KB of blocking JS and improves FID/LCP scores.
+let razorpayLoadPromise: Promise<void> | null = null;
+
+function loadRazorpayScript(): Promise<void> {
+  if (razorpayLoadPromise) return razorpayLoadPromise;
+
+  razorpayLoadPromise = new Promise<void>((resolve, reject) => {
+    if (window.Razorpay) {
+      resolve();
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error('Failed to load Razorpay'));
+    document.head.appendChild(script);
+  });
+
+  return razorpayLoadPromise;
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const initiatePayment = async (
   cta: string = 'Register',
   registrationData?: PaymentDetails,
   callbacks?: {
@@ -32,6 +58,14 @@ export const initiatePayment = (
     onDismiss?: () => void;
   }
 ) => {
+  // Load Razorpay on-demand (only when user actually submits)
+  try {
+    await loadRazorpayScript();
+  } catch {
+    alert('Unable to load payment gateway. Please check your connection and try again.');
+    return;
+  }
+
   const options = {
     key: RAZORPAY_CONFIG.KEY_ID,
     amount: RAZORPAY_CONFIG.AMOUNT,
@@ -48,19 +82,18 @@ export const initiatePayment = (
       email: registrationData?.email || '',
       mobile: registrationData?.mobile || '',
       institution: registrationData?.institution || '',
-      pincode: registrationData?.pincode || '',
+      message: registrationData?.message || '',
     },
     theme: {
       color: '#FF1F1F',
     },
-    handler: function (response: any) {
+    handler: function (_response: any) {
       callbacks?.onSuccess?.();
       redirectToWhatsApp();
     },
     modal: {
       ondismiss: function () {
         callbacks?.onDismiss?.();
-        console.log('Payment modal closed');
       },
     },
   };

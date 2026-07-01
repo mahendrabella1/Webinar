@@ -1,5 +1,8 @@
-import { createContext, useContext, ReactNode, useState } from 'react';
-import RegistrationForm from '../components/RegistrationForm';
+import { createContext, useContext, ReactNode } from 'react';
+
+// The enquiry form is now always visible in the Hero section (above the fold).
+// Any CTA that previously opened the modal now scrolls to that form instead.
+// This removes the modal overlay, improving performance and reducing cognitive load.
 
 interface RegistrationContextType {
   openForm: (ctaName: string) => void;
@@ -10,23 +13,27 @@ interface RegistrationContextType {
 
 const RegistrationContext = createContext<RegistrationContextType | undefined>(undefined);
 
-export function RegistrationProvider({ children }: { children: ReactNode }) {
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const [ctaName, setCtaName] = useState('Secure My Seat');
+function scrollToForm() {
+  const el = document.getElementById('enquiry-form');
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
 
-  const openForm = (name: string) => {
-    setCtaName(name);
-    setIsFormOpen(true);
+export function RegistrationProvider({ children }: { children: ReactNode }) {
+  // openForm now scrolls to the above-fold enquiry form instead of opening a modal.
+  // ctaName is kept for backward-compat with existing components.
+  const openForm = (_ctaName: string) => {
+    scrollToForm();
   };
 
   const closeForm = () => {
-    setIsFormOpen(false);
+    // No-op — modal no longer used
   };
 
   return (
-    <RegistrationContext.Provider value={{ openForm, closeForm, isFormOpen, ctaName }}>
+    <RegistrationContext.Provider
+      value={{ openForm, closeForm, isFormOpen: false, ctaName: 'Secure My Seat' }}
+    >
       {children}
-      <RegistrationForm isOpen={isFormOpen} onClose={closeForm} ctaName={ctaName} />
     </RegistrationContext.Provider>
   );
 }
