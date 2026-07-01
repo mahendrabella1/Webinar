@@ -13,10 +13,9 @@ import Hero from './components/Hero';
 // 6  Testimonials — reviews + pull-quote stat
 // 7  Countdown — 6 powerful benefits grid → timer
 // 8  ResearchAreas — Topics We Cover
-// 9  WhyChoose
+// 9  OneGraspConferences
 // 10 FAQ
-// 11 OneGraspConferences
-// 12 Footer
+// 11 Footer
 
 const Process            = lazy(() => import('./components/Process'));
 const StatsStrip         = lazy(() => import('./components/StatsStrip'));
@@ -25,7 +24,7 @@ const Agenda             = lazy(() => import('./components/Agenda'));
 const Testimonials       = lazy(() => import('./components/Testimonials'));
 const Countdown          = lazy(() => import('./components/Countdown'));
 const ResearchAreas      = lazy(() => import('./components/ResearchAreas'));
-const WhyChoose          = lazy(() => import('./components/WhyChoose'));
+
 const FAQ                = lazy(() => import('./components/FAQ'));
 const OneGraspConferences = lazy(() => import('./components/OneGraspConferences'));
 const Footer             = lazy(() => import('./components/Footer'));
@@ -87,15 +86,11 @@ function AppContent() {
       {/* ── Remaining sections ─────────────────────────────────────────── */}
 
       <Suspense fallback={<SectionLoader />}>
-        <WhyChoose />
+        <OneGraspConferences />
       </Suspense>
 
       <Suspense fallback={<SectionLoader />}>
         <FAQ />
-      </Suspense>
-
-      <Suspense fallback={<SectionLoader />}>
-        <OneGraspConferences />
       </Suspense>
 
       <Suspense fallback={<SectionLoader />}>

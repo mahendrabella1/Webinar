@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { Calendar, Globe, Award, FileText, ArrowRight } from 'lucide-react';
+
+import { Globe, Award, FileText, ArrowRight, Mic, Users, CheckCircle2 } from 'lucide-react';
 import Collaborators from './Collaborators';
 
 export default function OneGraspConferences() {
@@ -69,13 +70,15 @@ export default function OneGraspConferences() {
                 their work, earn accredited certificates, and gain global visibility.
               </p>
 
-              {/* Key benefits */}
+              {/* 6 powerful benefits given by OneGrasp */}
               <div className="grid sm:grid-cols-2 gap-4 pt-2">
                 {[
-                  { Icon: Award, title: 'Certificates', desc: 'Participant certificates accredited for CPD' },
-                  { Icon: FileText, title: 'DOI for Abstracts', desc: 'Crossref DOI assigned to every accepted abstract' },
-                  { Icon: Globe, title: 'Global Indexing', desc: 'Google Scholar & 10+ international directories' },
-                  { Icon: Calendar, title: 'Upcoming Events', desc: 'Multiple conferences throughout the year' },
+                  { Icon: Award, title: 'CPD Certificates', desc: 'Participant & presenter certificates accredited for CPD.' },
+                  { Icon: FileText, title: 'Crossref DOI', desc: 'Permanent, globally citable Digital Object Identifier for every abstract.' },
+                  { Icon: Globe, title: 'Global Indexing', desc: 'Indexed in Google Scholar and 10+ prestigious international directories.' },
+                  { Icon: Mic, title: 'Keynote Pathway', desc: 'A clear roadmap to transition from attendee to invited keynote presenter.' },
+                  { Icon: Users, title: 'Peer Networking', desc: 'Connect with senior researchers and scholars from 20+ countries.' },
+                  { Icon: CheckCircle2, title: 'Fast Review', desc: 'Streamlined and transparent abstract evaluation by peer review boards.' },
                 ].map(({ Icon, title, desc }) => (
                   <div key={title} className="flex gap-3 bg-white/[0.03] rounded-lg p-4">
                     <div className="w-9 h-9 rounded flex items-center justify-center bg-[#FF1F1F]/12 border border-[#FF1F1F]/30 flex-shrink-0">
