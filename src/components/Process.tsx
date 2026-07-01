@@ -35,7 +35,8 @@ function scrollToForm() {
 
 export default function Process() {
   return (
-    <section id="process" className="bg-[#050505] py-24 overflow-hidden">
+    <section id="information-section" className="bg-[#050505] py-24 overflow-hidden" style={{ scrollMarginTop: '5rem' }}>
+
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
 
         {/* Header */}

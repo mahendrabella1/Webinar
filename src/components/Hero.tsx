@@ -353,10 +353,38 @@ export default function Hero() {
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8 w-full py-8 lg:py-10">
         <div className="grid lg:grid-cols-[1fr_1fr] gap-8 lg:gap-14 items-start">
 
-          {/* ── LEFT: Copy ─────────────────────────────────────────────── */}
+          {/* ── LEFT: Enquiry Form (Desktop Left / Mobile Top) ──────────────── */}
+          <motion.div
+            initial={{ opacity: 0, x: -32 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.12 }}
+            className="w-full"
+          >
+            <div
+              id="enquiry-form"
+              className="bg-[#0D0D0D]/90 backdrop-blur-sm border border-white/[0.1] rounded-2xl p-6 sm:p-8 shadow-2xl shadow-black/60"
+              style={{ scrollMarginTop: '5rem' }}
+            >
+              {/* Form header (What to do next?) */}
+              <div className="mb-5">
+                <p className="text-[#FF1F1F] text-[10px] font-black uppercase tracking-[0.25em] mb-1">
+                  Enquiry Form
+                </p>
+                <h2 className="text-white font-black text-xl leading-tight">
+                  Secure Your Seat
+                </h2>
+                <p className="text-[#A0A0A0] text-xs mt-1.5 leading-relaxed">
+                  Submit the enquiry form below to secure your seat at this international webinar.
+                </p>
+              </div>
+
+              <EnquiryForm />
+            </div>
+          </motion.div>
+
+          {/* ── RIGHT: Copy ─────────────────────────────────────────────── */}
           <div className="space-y-6">
             {/* Pre-headline badge */}
-
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -460,35 +488,38 @@ export default function Hero() {
                 </div>
               ))}
             </motion.div>
+
+            {/* Two Action Buttons (Book Now, Know More) */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.28 }}
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-3"
+            >
+              <button
+                onClick={() => {
+                  const el = document.getElementById('enquiry-form');
+                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }}
+                className="flex-grow sm:flex-grow-0 inline-flex items-center justify-center gap-2 bg-[#FF1F1F] hover:bg-[#C70000] text-white font-black text-sm uppercase tracking-wider px-8 py-3.5 rounded-sm transition-all duration-200 shadow-lg shadow-red-900/30 group"
+              >
+                Book Now
+                <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
+              </button>
+              <a
+                href="#information-section"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const el = document.getElementById('information-section');
+                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }}
+                className="flex-grow sm:flex-grow-0 inline-flex items-center justify-center gap-2 border border-white/20 hover:border-white/50 text-white/80 hover:text-white font-black text-sm uppercase tracking-wider px-8 py-3.5 rounded-sm transition-all duration-200"
+              >
+                Know More
+              </a>
+            </motion.div>
           </div>
 
-          {/* ── RIGHT: Enquiry Form ─────────────────────────────────────── */}
-          <motion.div
-            initial={{ opacity: 0, x: 32 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.12 }}
-          >
-            <div
-              id="enquiry-form"
-              className="bg-[#0D0D0D]/90 backdrop-blur-sm border border-white/[0.1] rounded-2xl p-6 sm:p-8 shadow-2xl shadow-black/60"
-              style={{ scrollMarginTop: '5rem' }}
-            >
-              {/* Form header (What to do next?) */}
-              <div className="mb-5">
-                <p className="text-[#FF1F1F] text-[10px] font-black uppercase tracking-[0.25em] mb-1">
-                  Enquiry Form
-                </p>
-                <h2 className="text-white font-black text-xl leading-tight">
-                  Secure Your Seat
-                </h2>
-                <p className="text-[#A0A0A0] text-xs mt-1.5 leading-relaxed">
-                  Submit the enquiry form below to secure your seat at this international webinar.
-                </p>
-              </div>
-
-              <EnquiryForm />
-            </div>
-          </motion.div>
 
         </div>
       </div>
