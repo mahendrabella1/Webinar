@@ -309,7 +309,7 @@ function EnquiryForm() {
           </>
         ) : (
           <>
-            Submit Enquiry
+            Book Now
             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
           </>
 
