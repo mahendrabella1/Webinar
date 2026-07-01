@@ -13,13 +13,10 @@ import Hero from './components/Hero';
 // 6  Testimonials — reviews + pull-quote stat
 // 7  Countdown — 6 powerful benefits grid → timer
 // 8  ResearchAreas — Topics We Cover
-// ── divider ──
 // 9  WhyChoose
-// 10 WhyAttend
-// 11 FAQ
-// 12 RegistrationCTA
-// 13 OneGraspConferences
-// 14 Footer
+// 10 FAQ
+// 11 OneGraspConferences
+// 12 Footer
 
 const Process            = lazy(() => import('./components/Process'));
 const StatsStrip         = lazy(() => import('./components/StatsStrip'));
@@ -29,9 +26,7 @@ const Testimonials       = lazy(() => import('./components/Testimonials'));
 const Countdown          = lazy(() => import('./components/Countdown'));
 const ResearchAreas      = lazy(() => import('./components/ResearchAreas'));
 const WhyChoose          = lazy(() => import('./components/WhyChoose'));
-const WhyAttend          = lazy(() => import('./components/WhyAttend'));
 const FAQ                = lazy(() => import('./components/FAQ'));
-const RegistrationCTA    = lazy(() => import('./components/RegistrationCTA'));
 const OneGraspConferences = lazy(() => import('./components/OneGraspConferences'));
 const Footer             = lazy(() => import('./components/Footer'));
 
@@ -96,15 +91,7 @@ function AppContent() {
       </Suspense>
 
       <Suspense fallback={<SectionLoader />}>
-        <WhyAttend />
-      </Suspense>
-
-      <Suspense fallback={<SectionLoader />}>
         <FAQ />
-      </Suspense>
-
-      <Suspense fallback={<SectionLoader />}>
-        <RegistrationCTA />
       </Suspense>
 
       <Suspense fallback={<SectionLoader />}>
