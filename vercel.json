@@ -3,7 +3,7 @@
   "trailingSlash": false,
   "headers": [
     {
-      "source": "/assets/:path*",
+      "source": "/assets/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -16,7 +16,7 @@
       ]
     },
     {
-      "source": "/images/:path*",
+      "source": "/images/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
