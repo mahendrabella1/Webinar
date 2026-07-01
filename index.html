@@ -58,18 +58,8 @@
       />
     </noscript>
 
-    <!-- Preload LCP image (hero poster) with responsive srcset -->
-    <!-- Browser picks the right size immediately, before JS runs -->
-    <link
-      rel="preload"
-      as="image"
-      href="/images/hero%20poster-1040w.webp"
-      imagesrcset="/images/hero%20poster-480w.webp 480w, /images/hero%20poster-768w.webp 768w, /images/hero%20poster-1040w.webp 1040w"
-      imagesizes="(max-width: 640px) 480px, (max-width: 1024px) 768px, 1040px"
-      type="image/webp"
-      fetchpriority="high"
-    />
   </head>
+
   <body>
     <div id="root"></div>
 
