@@ -54,7 +54,7 @@ export const initiatePayment = async (
   cta: string = 'Register',
   registrationData?: PaymentDetails,
   callbacks?: {
-    onSuccess?: () => void;
+    onSuccess?: (paymentId: string) => void;
     onDismiss?: () => void;
   }
 ) => {
@@ -87,8 +87,8 @@ export const initiatePayment = async (
     theme: {
       color: '#FF1F1F',
     },
-    handler: function (_response: any) {
-      callbacks?.onSuccess?.();
+    handler: function (response: any) {
+      callbacks?.onSuccess?.(response.razorpay_payment_id || '');
       redirectToWhatsApp();
     },
     modal: {
@@ -97,6 +97,7 @@ export const initiatePayment = async (
       },
     },
   };
+
 
   try {
     const rzp = new window.Razorpay(options);

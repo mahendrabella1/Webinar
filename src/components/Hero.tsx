@@ -124,7 +124,22 @@ function EnquiryForm() {
 
       // 2. Open Razorpay (loads script on-demand)
       await initiatePayment('Hero Enquiry Form', { ...form }, {
-        onSuccess: () => {
+        onSuccess: async (paymentId: string) => {
+          try {
+            await fetch('/api/send-registration', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                ...form,
+                ctaName: 'Hero Enquiry Form',
+                amount: '₹299',
+                isPaymentConfirmed: true,
+                paymentId,
+              }),
+            });
+          } catch (err) {
+            console.error('Failed to send payment confirmation:', err);
+          }
           setStatus('success');
           setForm({ name: '', email: '', mobile: '', institution: '', message: '' });
           setTouched({});

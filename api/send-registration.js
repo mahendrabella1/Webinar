@@ -16,23 +16,46 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { name, mobile, email, institution, pincode, message, ctaName, amount } = req.body || {};
+    const {
+      name,
+      mobile,
+      email,
+      institution,
+      pincode,
+      message,
+      ctaName,
+      amount,
+      isPaymentConfirmed,
+      paymentId,
+    } = req.body || {};
+
+    const subject = isPaymentConfirmed
+      ? `[PAID] Webinar Registration Confirmed - ${name || 'Attendee'}`
+      : `New Webinar Enquiry (Unpaid Lead) - ${name || 'Attendee'}`;
+
+    const html = `
+      <h2>${isPaymentConfirmed ? 'Webinar Registration Confirmed (Paid)' : 'New Webinar Enquiry (Lead Captured)'}</h2>
+      ${
+        isPaymentConfirmed
+          ? `<p style="color: #2e7d32; font-weight: bold; font-size: 16px;">✓ Payment Confirmed: ${amount || '₹299'}</p>
+             <p><strong>Razorpay Payment ID:</strong> ${paymentId || '-'}</p>`
+          : `<p style="color: #666; font-style: italic;">Note: This is an unpaid lead captured before payment initialization.</p>`
+      }
+      <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;" />
+      <p><strong>Name:</strong> ${name || '-'}</p>
+      <p><strong>Email:</strong> ${email || '-'}</p>
+      <p><strong>Phone:</strong> ${mobile || '-'}</p>
+      <p><strong>Institution:</strong> ${institution || '-'}</p>
+      ${pincode ? `<p><strong>Pincode:</strong> ${pincode}</p>` : ''}
+      ${message ? `<p><strong>Message:</strong> ${message}</p>` : ''}
+      <p><strong>CTA Location:</strong> ${ctaName || '-'}</p>
+    `;
 
     const mailOptions = {
       from: 'support@onegrasp.com',
       to: 'support@onegrasp.com',
-      subject: `New Webinar Enquiry / Registration - ${ctaName || 'CTA'}`,
-      html: `
-        <h2>New webinar enquiry / registration</h2>
-        <p><strong>Name:</strong> ${name || '-'}</p>
-        <p><strong>Email:</strong> ${email || '-'}</p>
-        <p><strong>Phone:</strong> ${mobile || '-'}</p>
-        <p><strong>Institution:</strong> ${institution || '-'}</p>
-        ${pincode ? `<p><strong>Pincode:</strong> ${pincode}</p>` : ''}
-        ${message ? `<p><strong>Message:</strong> ${message}</p>` : ''}
-        <p><strong>Amount:</strong> ${amount || '₹299'}</p>
-        <p><strong>CTA:</strong> ${ctaName || '-'}</p>
-      `,
+      subject,
+      html,
     };
 
     await transporter.sendMail(mailOptions);
