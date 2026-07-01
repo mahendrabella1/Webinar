@@ -309,9 +309,10 @@ function EnquiryForm() {
           </>
         ) : (
           <>
-            Submit Enquiry &amp; Pay ₹299
+            Submit Enquiry
             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
           </>
+
         )}
       </button>
 
@@ -351,7 +352,8 @@ export default function Hero() {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8 w-full py-8 lg:py-10">
-        <div className="grid lg:grid-cols-[1fr_1fr] gap-8 lg:gap-14 items-start">
+        <div className="grid lg:grid-cols-[1fr_1fr] gap-8 lg:gap-14 lg:items-center items-start">
+
 
           {/* ── LEFT: Enquiry Form (Desktop Left / Mobile Top) ──────────────── */}
           <motion.div
@@ -507,16 +509,17 @@ export default function Hero() {
                 <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
               </button>
               <a
-                href="#information-section"
+                href="#speakers"
                 onClick={(e) => {
                   e.preventDefault();
-                  const el = document.getElementById('information-section');
+                  const el = document.getElementById('speakers');
                   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }}
                 className="flex-grow sm:flex-grow-0 inline-flex items-center justify-center gap-2 border border-white/20 hover:border-white/50 text-white/80 hover:text-white font-black text-sm uppercase tracking-wider px-8 py-3.5 rounded-sm transition-all duration-200"
               >
                 Know More
               </a>
+
             </motion.div>
           </div>
 
