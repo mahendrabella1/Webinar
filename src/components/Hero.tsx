@@ -294,16 +294,17 @@ function EnquiryForm() {
           </>
         ) : (
           <>
-            Secure My Seat — ₹299
+            Submit Enquiry &amp; Pay ₹299
             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
           </>
         )}
       </button>
 
-      <p className="text-white/30 text-[11px] text-center leading-relaxed">
-        Your details are sent to support@onegrasp.com · Webinar link delivered via email
+      <p className="text-white/35 text-[10px] text-center leading-relaxed">
+        Secure payment processed via Razorpay · Enquiry details emailed to support@onegrasp.com
       </p>
     </form>
+
   );
 }
 
@@ -340,60 +341,85 @@ export default function Hero() {
           {/* ── LEFT: Copy ─────────────────────────────────────────────── */}
           <div className="space-y-6">
             {/* Pre-headline badge */}
+
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="flex flex-wrap items-center gap-3"
+              className="flex flex-wrap items-center gap-2.5"
             >
-              <span className="inline-flex items-center rounded-full bg-[#FF1F1F] px-3 py-1 text-xs font-black uppercase tracking-widest text-white shadow-lg shadow-red-900/30">
-                ₹299 Only
+              <span className="inline-flex items-center rounded bg-[#FF1F1F] px-2.5 py-0.5 text-[10px] font-black uppercase tracking-widest text-white shadow-sm">
+                LIVE WEBINAR
               </span>
-              <span className="text-white/40 text-xs font-medium">2 Hours · Online · 23 July 2026</span>
+              <span className="text-white/40 text-xs font-semibold uppercase tracking-wider">
+                Conducted by OneGrasp
+              </span>
             </motion.div>
 
-            {/* Headline */}
+            {/* Headline (What is this?) */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.08 }}
-              className="space-y-2"
+              className="space-y-1"
             >
-              <h1 className="text-4xl sm:text-5xl lg:text-[3.4rem] font-black uppercase leading-[1.05] tracking-tight text-white">
+              <h1 className="text-3xl sm:text-4xl lg:text-[2.8rem] font-black uppercase leading-[1.1] tracking-tight text-white">
                 International Scientific{' '}
                 <span className="text-[#FF1F1F]">Conferences</span>
               </h1>
-              <p className="text-lg sm:text-xl text-white/50 font-bold uppercase tracking-widest">
+              <p className="text-lg sm:text-xl text-[#FF1F1F] font-extrabold uppercase tracking-wide">
                 Importance &amp; Awareness Webinar
               </p>
             </motion.div>
 
-            {/* Supporting copy */}
+            {/* Value/Care Statement (Why should I care?) */}
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.16 }}
-              className="text-[#A0A0A0] text-base leading-relaxed max-w-lg"
+              transition={{ duration: 0.6, delay: 0.12 }}
+              className="text-white/70 text-sm sm:text-base leading-relaxed max-w-lg"
             >
-              OneGrasp conducts international scientific conferences across disciplines worldwide.
-              Join this live 2-hour webinar to understand exactly what these conferences are,
-              how they work, and how they can accelerate your research career.
+              Learn the exact steps to publish indexed abstracts, secure Crossref DOIs, 
+              and build your international research profile to accelerate your academic career.
             </motion.p>
 
-            {/* Benefit bullets */}
+            {/* Trust credentials (Can I trust it?) */}
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.16 }}
+              className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-white/50 border-y border-white/10 py-3"
+            >
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 size={12} className="text-[#FF1F1F]" />
+                CPD Accredited
+              </span>
+              <span className="text-white/20">|</span>
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 size={12} className="text-[#FF1F1F]" />
+                Crossref DOI Verified
+              </span>
+              <span className="text-white/20">|</span>
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 size={12} className="text-[#FF1F1F]" />
+                Google Scholar Indexed
+              </span>
+            </motion.div>
+
+            {/* Benefit bullets (Why should I care?) */}
             <motion.ul
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.22 }}
-              className="space-y-2.5"
-              aria-label="Webinar benefits"
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="space-y-2"
+              aria-label="Webinar learning points"
             >
               {BENEFIT_BULLETS.map(({ Icon, text }, i) => (
-                <li key={i} className="flex items-center gap-3 text-sm text-white/80">
-                  <span className="w-7 h-7 rounded-lg bg-[#FF1F1F]/15 border border-[#FF1F1F]/30 flex items-center justify-center flex-shrink-0">
-                    <Icon size={13} className="text-[#FF1F1F]" />
+                <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-white/90">
+                  <span className="w-5 h-5 rounded bg-[#FF1F1F]/15 border border-[#FF1F1F]/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Icon size={11} className="text-[#FF1F1F]" />
                   </span>
-                  {text}
+                  <span>{text}</span>
                 </li>
               ))}
             </motion.ul>
@@ -402,7 +428,7 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              transition={{ duration: 0.5, delay: 0.24 }}
               className="flex flex-wrap gap-2 pt-1"
             >
               {[
@@ -412,27 +438,13 @@ export default function Hero() {
               ].map(({ Icon, label }) => (
                 <div
                   key={label}
-                  className="flex items-center gap-2 bg-[#0D0D0D] border border-white/[0.1] rounded px-3 py-1.5"
+                  className="flex items-center gap-2 bg-[#0D0D0D] border border-white/[0.08] rounded px-2.5 py-1"
                 >
-                  <Icon size={12} className="text-[#FF1F1F]" />
-                  <span className="text-white text-xs font-medium">{label}</span>
+                  <Icon size={11} className="text-[#FF1F1F]" />
+                  <span className="text-white text-xs font-semibold">{label}</span>
                 </div>
               ))}
             </motion.div>
-
-            {/* Conducted-by attribution */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              className="text-white/35 text-sm"
-            >
-              Conducted by{' '}
-              <span className="text-white/70 font-bold">
-                One<span className="text-[#FF1F1F]">Grasp</span>
-              </span>{' '}
-              — International Scientific Conferences
-            </motion.p>
           </div>
 
           {/* ── RIGHT: Enquiry Form ─────────────────────────────────────── */}
@@ -446,16 +458,16 @@ export default function Hero() {
               className="bg-[#0D0D0D]/90 backdrop-blur-sm border border-white/[0.1] rounded-2xl p-6 sm:p-8 shadow-2xl shadow-black/60"
               style={{ scrollMarginTop: '5rem' }}
             >
-              {/* Form header */}
-              <div className="mb-6">
-                <p className="text-[#FF1F1F] text-xs font-black uppercase tracking-[0.25em] mb-1">
-                  Register Now
+              {/* Form header (What to do next?) */}
+              <div className="mb-5">
+                <p className="text-[#FF1F1F] text-[10px] font-black uppercase tracking-[0.25em] mb-1">
+                  Enquiry Form
                 </p>
                 <h2 className="text-white font-black text-xl leading-tight">
                   Secure Your Seat
                 </h2>
-                <p className="text-[#A0A0A0] text-sm mt-1">
-                  Fill in your details below and pay ₹299 to confirm your spot.
+                <p className="text-[#A0A0A0] text-xs mt-1.5 leading-relaxed">
+                  Submit the enquiry form below to secure your seat at this international webinar.
                 </p>
               </div>
 
