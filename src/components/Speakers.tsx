@@ -12,7 +12,8 @@ const speakers = [
     role: 'Faculty, Founder & Guest Lecturer',
     org: 'Tagore School of Rural Development and Agricultural Management, Kalyani University, Nadia',
     location: 'Kolkata, India',
-    topic: 'Interdisciplinary Research',
+    topic: 'Why Research Conferences Matter in the AI Era & How OneGrasp Helps',
+    topicDesc: 'A clear, structured explanation of scientific conferences — their purpose, who organizes them, how they differ from seminars, and why they are globally important in the age of AI.',
   },
   {
     photoWebp: '/images/speaker2.webp',
@@ -22,7 +23,8 @@ const speakers = [
     role: 'Professor of Pharmacology',
     org: 'Sri Siddhartha Medical College, Tumkur',
     location: 'Karnataka, India',
-    topic: 'Medical Research & Conferences',
+    topic: 'Medication Errors in Patient Safety',
+    topicDesc: 'Real-world examples of how research conferences address critical patient safety issues and how attending transforms healthcare practices globally.',
   },
   {
     photoWebp: '/images/speaker3.webp',
@@ -33,7 +35,8 @@ const speakers = [
     role: 'Dean, Faculty of Engineering',
     org: 'Dayalbagh Educational Institute, Agra',
     location: 'Agra, India',
-    topic: 'Academic Publishing & Conferences',
+    topic: 'Mental Health: Overcoming the Effects of Social Media and Poor Attention',
+    topicDesc: 'Expert insights on how interdisciplinary research conferences bring together solutions for contemporary mental health challenges in our digital world.',
   },
   {
     photoWebp: '/images/speaker4.webp',
@@ -44,7 +47,8 @@ const speakers = [
     role: 'Professor, Partner & Advisor',
     org: 'Invosystems',
     location: 'Bangalore, India',
-    topic: 'Conference Research Impact',
+    topic: 'Building a Successful Career Through Research and Global Networking',
+    topicDesc: 'Discover how engineering and technology professionals leverage international conferences to build careers, innovate, and connect with global leaders in their field.',
   },
 ];
 
@@ -125,16 +129,22 @@ export default function Speakers() {
                     </div>
                   </div>
 
-                  <div className={`p-6 flex flex-col justify-center ${reversed ? 'lg:text-left' : ''}`}>
+                  <div className="p-6 flex flex-col justify-center text-left">
                     <div className="mb-3">
-                      <p className="text-[#FF1F1F] text-xs uppercase tracking-[0.3em] mb-2">{s.topic}</p>
-                      <h3 className="text-white text-xl font-black tracking-tight mb-2">{s.name}</h3>
-                      <p className="text-[#FF1F1F] text-sm font-semibold uppercase mb-3">{s.domain}</p>
+                      <h3 className="text-white text-xl font-black tracking-tight mb-1">{s.name}</h3>
+                      <p className="text-[#FF1F1F] text-xs font-bold uppercase tracking-wider mb-2">{s.domain}</p>
                     </div>
-                    <div className="space-y-3 text-sm text-[#A0A0A0] leading-relaxed">
-                      <p>{s.role}</p>
+                    <div className="space-y-1.5 text-xs text-white/50 leading-relaxed mb-4">
+                      <p className="font-semibold text-white/70">{s.role}</p>
                       <p>{s.org}</p>
-                      {s.location ? <p className="text-white/60">{s.location}</p> : null}
+                      {s.location ? <p className="text-white/40">{s.location}</p> : null}
+                    </div>
+                    <div className="pt-4 border-t border-white/[0.08]">
+                      <p className="text-[#FF1F1F] text-[10px] font-black uppercase tracking-wider mb-1">
+                        Webinar Topic:
+                      </p>
+                      <h4 className="text-white text-sm font-bold leading-snug mb-1">{s.topic}</h4>
+                      <p className="text-[#A0A0A0] text-xs leading-relaxed">{s.topicDesc}</p>
                     </div>
                   </div>
                 </div>
