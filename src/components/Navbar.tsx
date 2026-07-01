@@ -39,7 +39,7 @@ export default function Navbar() {
         {/* Logo */}
         <a href="#" className="flex items-center gap-2 flex-shrink-0">
           <img
-            src="https://onegrasp.com/wp-content/uploads/2026/05/logo.png"
+            src="/images/logo.png"
             alt="OneGrasp Logo"
             width={160}
             height={40}

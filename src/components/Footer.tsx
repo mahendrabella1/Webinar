@@ -14,7 +14,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="space-y-5 lg:col-span-1">
             <img
-              src="https://onegrasp.com/wp-content/uploads/2026/05/logo.png"
+              src="/images/logo.png"
               alt="OneGrasp Logo"
               width={150}
               height={38}

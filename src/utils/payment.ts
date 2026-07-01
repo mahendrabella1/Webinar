@@ -72,7 +72,7 @@ export const initiatePayment = async (
     currency: 'INR',
     name: 'OneGrasp Webinar',
     description: `International Scientific Conferences Webinar - ${cta}`,
-    image: 'https://onegrasp.com/wp-content/uploads/2026/05/logo.png',
+    image: window.location.origin + '/images/logo.png',
     prefill: {
       name: registrationData?.name || registrationData?.institution || '',
       email: registrationData?.email || '',

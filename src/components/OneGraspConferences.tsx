@@ -57,7 +57,7 @@ export default function OneGraspConferences() {
             <div className="flex-1 space-y-5">
               <div className="flex items-center gap-3">
                 <img 
-                  src="https://onegrasp.com/wp-content/uploads/2026/05/logo.png" 
+                  src="/images/logo.png" 
                   alt="OneGrasp Logo"
                   className="h-12 w-auto"
                 />

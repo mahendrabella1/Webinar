@@ -1,42 +1,16 @@
-import { lazy, Suspense } from 'react';
 import { RegistrationProvider } from './context/RegistrationContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-
-// ─── Lazy-loaded below-fold sections ─────────────────────────────────────────
-// Ordered exactly per the approved flow:
-// 1  Hero (eager)
-// 2  Process — 4 stages
-// 3  StatsStrip — global conference facts (curiosity builder)
-// 4  Speakers — 4 educators
-// 5  Agenda — webinar agenda
-// 6  Testimonials — reviews + pull-quote stat
-// 7  Countdown — 6 powerful benefits grid → timer
-// 8  ResearchAreas — Topics We Cover
-// 9  OneGraspConferences
-// 10 FAQ
-// 11 Footer
-
-const Process            = lazy(() => import('./components/Process'));
-const StatsStrip         = lazy(() => import('./components/StatsStrip'));
-const Speakers           = lazy(() => import('./components/Speakers'));
-const Agenda             = lazy(() => import('./components/Agenda'));
-const Testimonials       = lazy(() => import('./components/Testimonials'));
-const Countdown          = lazy(() => import('./components/Countdown'));
-const ResearchAreas      = lazy(() => import('./components/ResearchAreas'));
-
-const FAQ                = lazy(() => import('./components/FAQ'));
-const OneGraspConferences = lazy(() => import('./components/OneGraspConferences'));
-const Footer             = lazy(() => import('./components/Footer'));
-
-function SectionLoader() {
-  return (
-    <div
-      style={{ minHeight: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-      aria-hidden="true"
-    />
-  );
-}
+import Process from './components/Process';
+import StatsStrip from './components/StatsStrip';
+import Speakers from './components/Speakers';
+import Agenda from './components/Agenda';
+import Testimonials from './components/Testimonials';
+import Countdown from './components/Countdown';
+import ResearchAreas from './components/ResearchAreas';
+import OneGraspConferences from './components/OneGraspConferences';
+import FAQ from './components/FAQ';
+import Footer from './components/Footer';
 
 function AppContent() {
   return (
@@ -46,57 +20,38 @@ function AppContent() {
       <Navbar />
       <Hero />
 
-      {/* ── BELOW FOLD — lazy loaded in conversion order ──────────────── */}
+      {/* ── BELOW FOLD ──────────────── */}
 
       {/* 2. Process: 4-stage journey */}
-      <Suspense fallback={<SectionLoader />}>
-        <Process />
-      </Suspense>
+      <Process />
 
       {/* 3. StatsStrip: global conference facts — builds curiosity before speakers */}
-      <Suspense fallback={<SectionLoader />}>
-        <StatsStrip />
-      </Suspense>
+      <StatsStrip />
 
       {/* 4. Speakers: the 4 educators */}
-      <Suspense fallback={<SectionLoader />}>
-        <Speakers />
-      </Suspense>
+      <Speakers />
 
       {/* 5. Agenda: webinar agenda */}
-      <Suspense fallback={<SectionLoader />}>
-        <Agenda />
-      </Suspense>
+      <Agenda />
 
       {/* Reviews between Agenda and Benefits */}
-      <Suspense fallback={<SectionLoader />}>
-        <Testimonials />
-      </Suspense>
+      <Testimonials />
 
       {/* 6+7. Countdown: 6 Powerful Benefits grid → countdown timer */}
-      <Suspense fallback={<SectionLoader />}>
-        <Countdown />
-      </Suspense>
+      <Countdown />
 
       {/* 8. Topics We Cover in this webinar */}
-      <Suspense fallback={<SectionLoader />}>
-        <ResearchAreas />
-      </Suspense>
+      <ResearchAreas />
 
       {/* ── Remaining sections ─────────────────────────────────────────── */}
 
-      <Suspense fallback={<SectionLoader />}>
-        <OneGraspConferences />
-      </Suspense>
+      <OneGraspConferences />
 
-      <Suspense fallback={<SectionLoader />}>
-        <FAQ />
-      </Suspense>
+      <FAQ />
 
-      <Suspense fallback={<SectionLoader />}>
-        <Footer />
-      </Suspense>
+      <Footer />
     </div>
+
   );
 }
 

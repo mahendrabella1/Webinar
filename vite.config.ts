@@ -41,30 +41,6 @@ export default defineConfig({
 
     rollupOptions: {
       output: {
-        // Fine-grained manual chunks for optimal caching
-        manualChunks(id) {
-          // React core
-          if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) {
-            return 'react-core';
-          }
-          // Framer Motion (large — isolate it)
-          if (id.includes('node_modules/framer-motion')) {
-            return 'framer-motion';
-          }
-          // Lucide icons
-          if (id.includes('node_modules/lucide-react')) {
-            return 'lucide';
-          }
-          // Supabase
-          if (id.includes('node_modules/@supabase')) {
-            return 'supabase';
-          }
-          // Everything else in node_modules goes to a general vendor chunk
-          if (id.includes('node_modules')) {
-            return 'vendor';
-          }
-        },
-
         // Consistent hashed filenames for long-term caching
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',
