@@ -34,6 +34,10 @@
         {
           "key": "Cache-Control",
           "value": "public, max-age=0, must-revalidate"
+        },
+        {
+          "key": "Expires",
+          "value": "0"
         }
       ]
     },
@@ -43,6 +47,10 @@
         {
           "key": "Cache-Control",
           "value": "public, max-age=0, must-revalidate"
+        },
+        {
+          "key": "Expires",
+          "value": "0"
         }
       ]
     }
