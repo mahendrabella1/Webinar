@@ -3,102 +3,114 @@ import { RegistrationProvider } from './context/RegistrationContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 
-// ─── Below-fold components — lazily loaded ────────────────────────────────────
-// JS for these components is only downloaded when they are about to be rendered,
-// keeping the initial bundle small and improving LCP & FID.
+// ─── Lazy-loaded below-fold sections ─────────────────────────────────────────
+// Ordered exactly per the approved flow:
+// 1  Hero (eager)
+// 2  Process — 4 stages
+// 3  StatsStrip — global conference facts (curiosity builder)
+// 4  Speakers — 4 educators
+// 5  Agenda — webinar agenda
+// 6  Testimonials — reviews + pull-quote stat
+// 7  Countdown — 6 powerful benefits grid → timer
+// 8  ResearchAreas — Topics We Cover
+// ── divider ──
+// 9  WhyChoose
+// 10 WhyAttend
+// 11 FAQ
+// 12 RegistrationCTA
+// 13 OneGraspConferences
+// 14 Footer
 
-// Trust section (immediately after Hero — loaded eagerly-ish via Suspense)
-const Trust           = lazy(() => import('./components/Trust'));
-const WhyChoose       = lazy(() => import('./components/WhyChoose'));
-const Process         = lazy(() => import('./components/Process'));
-const Countdown       = lazy(() => import('./components/Countdown'));
-const Speakers        = lazy(() => import('./components/Speakers'));
-const WhyAttend       = lazy(() => import('./components/WhyAttend'));
-const Agenda          = lazy(() => import('./components/Agenda'));
-const ResearchAreas   = lazy(() => import('./components/ResearchAreas'));
-const FAQ             = lazy(() => import('./components/FAQ'));
-const RegistrationCTA = lazy(() => import('./components/RegistrationCTA'));
+const Process            = lazy(() => import('./components/Process'));
+const StatsStrip         = lazy(() => import('./components/StatsStrip'));
+const Speakers           = lazy(() => import('./components/Speakers'));
+const Agenda             = lazy(() => import('./components/Agenda'));
+const Testimonials       = lazy(() => import('./components/Testimonials'));
+const Countdown          = lazy(() => import('./components/Countdown'));
+const ResearchAreas      = lazy(() => import('./components/ResearchAreas'));
+const WhyChoose          = lazy(() => import('./components/WhyChoose'));
+const WhyAttend          = lazy(() => import('./components/WhyAttend'));
+const FAQ                = lazy(() => import('./components/FAQ'));
+const RegistrationCTA    = lazy(() => import('./components/RegistrationCTA'));
 const OneGraspConferences = lazy(() => import('./components/OneGraspConferences'));
-const Footer          = lazy(() => import('./components/Footer'));
+const Footer             = lazy(() => import('./components/Footer'));
 
-// ─── Minimal skeleton shown while lazy chunks load ────────────────────────────
 function SectionLoader() {
   return (
     <div
-      style={{ height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+      style={{ minHeight: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
       aria-hidden="true"
     />
   );
 }
 
-// ─── Page layout ──────────────────────────────────────────────────────────────
 function AppContent() {
   return (
     <div className="bg-[#050505] min-h-screen font-sans antialiased">
 
-      {/* ── ABOVE FOLD ──────────────────────────────────────────────────────── */}
-      {/* Navbar & Hero are eagerly loaded — they are always the first paint */}
+      {/* ── ABOVE FOLD — eager loaded ──────────────────────────────────── */}
       <Navbar />
       <Hero />
 
-      {/* ── BELOW FOLD — lazy loaded in order of visual importance ─────────── */}
+      {/* ── BELOW FOLD — lazy loaded in conversion order ──────────────── */}
 
-      {/* 3. Trust: logos, stats, testimonials — immediate social proof */}
-      <Suspense fallback={<SectionLoader />}>
-        <Trust />
-      </Suspense>
-
-      {/* 4. Why Choose OneGrasp — 7 value proposition cards */}
-      <Suspense fallback={<SectionLoader />}>
-        <WhyChoose />
-      </Suspense>
-
-      {/* 5. Process — 4-step visual journey */}
+      {/* 2. Process: 4-stage journey */}
       <Suspense fallback={<SectionLoader />}>
         <Process />
       </Suspense>
 
-      {/* Countdown timer — urgency driver */}
+      {/* 3. StatsStrip: global conference facts — builds curiosity before speakers */}
       <Suspense fallback={<SectionLoader />}>
-        <Countdown />
+        <StatsStrip />
       </Suspense>
 
-      {/* Expert Speakers */}
+      {/* 4. Speakers: the 4 educators */}
       <Suspense fallback={<SectionLoader />}>
         <Speakers />
       </Suspense>
 
-      {/* 6. Benefits — What You'll Learn (WhyAttend) */}
-      <Suspense fallback={<SectionLoader />}>
-        <WhyAttend />
-      </Suspense>
-
-      {/* Agenda */}
+      {/* 5. Agenda: webinar agenda */}
       <Suspense fallback={<SectionLoader />}>
         <Agenda />
       </Suspense>
 
-      {/* Topics / Research Areas */}
+      {/* Reviews between Agenda and Benefits */}
+      <Suspense fallback={<SectionLoader />}>
+        <Testimonials />
+      </Suspense>
+
+      {/* 6+7. Countdown: 6 Powerful Benefits grid → countdown timer */}
+      <Suspense fallback={<SectionLoader />}>
+        <Countdown />
+      </Suspense>
+
+      {/* 8. Topics We Cover in this webinar */}
       <Suspense fallback={<SectionLoader />}>
         <ResearchAreas />
       </Suspense>
 
-      {/* 7. FAQ */}
+      {/* ── Remaining sections ─────────────────────────────────────────── */}
+
+      <Suspense fallback={<SectionLoader />}>
+        <WhyChoose />
+      </Suspense>
+
+      <Suspense fallback={<SectionLoader />}>
+        <WhyAttend />
+      </Suspense>
+
       <Suspense fallback={<SectionLoader />}>
         <FAQ />
       </Suspense>
 
-      {/* 8. Final CTA — scrolls back to form */}
       <Suspense fallback={<SectionLoader />}>
         <RegistrationCTA />
       </Suspense>
 
-      {/* After-webinar: OneGrasp Conferences */}
       <Suspense fallback={<SectionLoader />}>
         <OneGraspConferences />
       </Suspense>
 
-      {/* 9. Footer */}
       <Suspense fallback={<SectionLoader />}>
         <Footer />
       </Suspense>

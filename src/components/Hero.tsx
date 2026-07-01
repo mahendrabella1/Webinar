@@ -7,10 +7,11 @@ import {
   CheckCircle2,
   Loader2,
   ArrowRight,
-  Award,
   FileText,
   Globe,
   AlertCircle,
+  BookOpen,
+  Mic,
 } from 'lucide-react';
 import { initiatePayment } from '../utils/payment';
 
@@ -26,11 +27,11 @@ type FormData = {
 type FormErrors = Partial<Record<keyof FormData, string>>;
 
 const BENEFIT_BULLETS = [
-  { Icon: FileText, text: 'Get a Crossref DOI for your research abstract' },
-  { Icon: Award, text: 'Earn CPD-accredited Certificate of Participation' },
-  { Icon: Globe, text: 'Abstract indexed in Google Scholar & 10+ directories' },
-  { Icon: CheckCircle2, text: 'Discover how to become a Keynote Speaker' },
-  { Icon: Users, text: 'Network with 1000+ researchers across 20+ countries' },
+  { Icon: BookOpen,      text: 'What international scientific conferences are & how they work' },
+  { Icon: FileText,      text: 'How your research gets a Crossref DOI & is published globally' },
+  { Icon: Globe,         text: 'How OneGrasp conferences are indexed in 10+ academic directories' },
+  { Icon: Mic,           text: 'How to present, speak & grow as a researcher at global conferences' },
+  { Icon: CheckCircle2,  text: 'The real career & visibility benefits conferences offer you' },
 ];
 
 function validateForm(data: FormData): FormErrors {
@@ -311,7 +312,7 @@ export default function Hero() {
   return (
     <main
       id="about"
-      className="relative min-h-screen flex items-center bg-[#050505] overflow-hidden pt-16 md:pt-20"
+      className="relative bg-[#050505] overflow-hidden pt-16 md:pt-18"
     >
       {/* Background image — low priority, decorative only */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
@@ -333,8 +334,8 @@ export default function Hero() {
         <div className="absolute top-0 left-0 w-[45%] h-[55%] bg-[radial-gradient(ellipse_at_top_left,rgba(199,0,0,0.13),transparent_65%)]" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 w-full py-14 lg:py-20">
-        <div className="grid lg:grid-cols-[1fr_1fr] gap-10 lg:gap-16 items-center">
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 w-full py-8 lg:py-10">
+        <div className="grid lg:grid-cols-[1fr_1fr] gap-8 lg:gap-14 items-start">
 
           {/* ── LEFT: Copy ─────────────────────────────────────────────── */}
           <div className="space-y-6">
@@ -374,8 +375,9 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.16 }}
               className="text-[#A0A0A0] text-base leading-relaxed max-w-lg"
             >
-              Everything you need to know about DOI publications, indexed proceedings, and how to grow
-              your academic profile — in one live 2-hour session conducted by OneGrasp.
+              OneGrasp conducts international scientific conferences across disciplines worldwide.
+              Join this live 2-hour webinar to understand exactly what these conferences are,
+              how they work, and how they can accelerate your research career.
             </motion.p>
 
             {/* Benefit bullets */}
