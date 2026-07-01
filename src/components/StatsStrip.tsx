@@ -4,11 +4,12 @@ import { motion, useInView } from 'framer-motion';
 // Global conference & research statistics — builds curiosity and authority
 const stats = [
   {
-    value: 170,
-    suffix: 'M+',
-    label: 'Metadata Records',
-    sub: 'indexed by Crossref globally',
+    value: 300,
+    suffix: '%',
+    label: 'Citation Boost',
+    sub: 'average visibility growth with Crossref DOIs',
   },
+
   {
     value: 10000,
     suffix: '+',
